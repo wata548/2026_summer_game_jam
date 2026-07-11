@@ -3,11 +3,11 @@ using UnityEngine;
 namespace Extension.ObjectPool {
     public abstract class ObjBase<T>: MonoBehaviour, IObj<T> where T: class, IObj<T> {
         public bool IsExist { get; private set; }
-        public Transform Folder { get; protected set; }
+        public static Transform Folder { get; protected set; }
         private static AutoObjCollect<T> _returnMethod;
 
         public virtual T Clone() {
-            Folder ??= new GameObject("Folder").transform;
+            Folder ??= new GameObject($"{typeof(T).Name} Folder").transform;
             return Instantiate(this, Folder) as T;
         }
         public virtual void Init(AutoObjCollect<T> pReturnMethod) {

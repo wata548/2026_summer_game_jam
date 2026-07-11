@@ -1,0 +1,50 @@
+using System;
+using Entity;
+using Extension.ObjectPool;
+using UnityEngine;
+
+namespace Map {
+    public class MapManager: MonoBehaviour {
+        
+        //==================================================||Fields 
+        [SerializeField] private MapTile _defaultTile;
+        private ObjPool<MapTile> _tilePool;
+        private Vector2Int _lastPlayerPos;
+        private const int MapRadius = 1;
+        private const int MapLength = MapRadius * 2 + 1;
+
+       //==================================================||Methods
+       private void UpdateTiles(Vector2Int pPos) {
+           _lastPlayerPos = pPos;
+           var exist = new bool[MapLength * MapLength];
+           foreach (var element in _tilePool.Elements) {
+               var delta = element.Pos - _lastPlayerPos;
+               if(delta.x is < -MapRadius or > MapRadius || delta.y is < -MapRadius or > MapRadius)
+                   continue;
+               exist[(delta.y + MapRadius) * MapLength + delta.x + MapRadius] = true;
+           }
+
+           for (int y = 0; y < MapLength; y++) {
+               for (int x = 0; x < MapLength; x++) {
+                   if(exist[y * MapLength + x])
+                       continue;
+                   _tilePool.Get().SetPos(
+                       new(_lastPlayerPos.x + x - MapRadius, _lastPlayerPos.y + y - MapRadius)
+                   );
+               }
+           }
+       }
+
+       //==================================================||Unity 
+        private void Awake() {
+            _tilePool = new(_defaultTile);
+            UpdateTiles(Vector2Int.zero);
+        }
+
+        private void LateUpdate() {
+            var pos = Player.Instance.Pos;
+            if(pos != _lastPlayerPos)
+                UpdateTiles(pos);
+        }
+    }
+}
