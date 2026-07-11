@@ -1,0 +1,4 @@
+각 카드를 구현할 시 CardBase를 상속받아야하며
+각 카드의 이름은 SpreadSheet에 적힌 번호를 Number라고 하면 Card{Number}형태로 이름을 지어야합니다. 
+또한 Card NameSpace로 덮혀있어야합니다.
+ex) Card1001

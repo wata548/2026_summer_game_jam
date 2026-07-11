@@ -42,7 +42,7 @@ namespace Map {
         }
 
         private void LateUpdate() {
-            var pos = Player.Instance.Pos;
+            var pos = Player.Instance.GridPos;
             if(pos != _lastPlayerPos)
                 UpdateTiles(pos);
         }

@@ -7,7 +7,8 @@ namespace Extension.ObjectPool {
         private static AutoObjCollect<T> _returnMethod;
 
         public virtual T Clone() {
-            Folder ??= new GameObject($"{typeof(T).Name} Folder").transform;
+            if(Folder == null)
+                Folder = new GameObject($"{typeof(T).Name} Folder").transform;
             return Instantiate(this, Folder) as T;
         }
         public virtual void Init(AutoObjCollect<T> pReturnMethod) {
