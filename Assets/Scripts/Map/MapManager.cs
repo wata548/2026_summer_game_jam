@@ -10,7 +10,7 @@ namespace Map {
         [SerializeField] private MapTile _defaultTile;
         private ObjPool<MapTile> _tilePool;
         private Vector2Int _lastPlayerPos;
-        private const int MapRadius = 1;
+        public const int MapRadius = 3;
         private const int MapLength = MapRadius * 2 + 1;
 
        //==================================================||Methods

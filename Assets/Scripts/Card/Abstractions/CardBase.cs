@@ -6,6 +6,7 @@ namespace Card {
        //==================================================||Properties 
         public abstract int Id { get; }
         public int Level { get; private set; } = 0;
+        public virtual bool RandomAppearAble => true;
         
         //==================================================||Fields 
         public readonly CardDesc Desc;
@@ -19,7 +20,10 @@ namespace Card {
         public void LevelUp() => Level++;
 
         public virtual void Update(IEntity pTarget) {}
-        public virtual void OnGet(IEntity pTarget) {}
+
+        public virtual void OnGet(IEntity pTarget) {
+            Level = 0;
+        }
         public virtual void OnDeath(IEntity pTarget) {}
         public virtual void OnReceiveDamage(IEntity pTarget, int pAmount) {}
         public virtual void OnHeal(IEntity pTarget, int pAmount) {}

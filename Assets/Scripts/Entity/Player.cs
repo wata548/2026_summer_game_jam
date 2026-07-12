@@ -1,15 +1,20 @@
 using System;
 using Card.Inventory;
+using Entity.AttackModule;
+using Entity.AttackModule.Implements;
+using Entity.AttackModule.Implements.Player;
 using Extension;
+using Extension.Test;
 using Map;
 using Movement;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Entity {
     public class Player: MonoSingleton<Player>, IEntity {
         //==================================================||Singleton Option 
         protected override bool IsNarrowSingleton => true;
-        protected override bool AllowAutoGen => false;
 
         //==================================================||Events 
         public event Action<IEntity, int, bool> OnReceiveDamage;
@@ -19,21 +24,22 @@ namespace Entity {
         
         //==================================================||Properties 
         
-        public readonly IMovement Movement = new KeyboardMovement();
         public readonly CardInventory CardInventory = new();
 
+        public Vector3 Pos => transform.position;
+        public IMovement Movement { get; private set; }
+        public IAttack Attack { get; private set; }
+        
         public bool IsInvincible { get; private set; } = false;
         public int MaxHp { get; private set; } = 100;
         public int Hp { get; private set; } = 100;
         public int Guard { get; private set; } = 0;
+        public int Power { get; private set; } = 20;
         
         public Vector2Int GridPos => new(
             Mathf.RoundToInt(transform.position.x / MapTile.Size),
             Mathf.RoundToInt(transform.position.y / MapTile.Size)
         );
-        //==================================================||Fields 
-        [SerializeField] private float _speed = 3;
-        
         //==================================================||Methods 
         public void ReceiveDamage(int pAmount) {
 
@@ -82,9 +88,21 @@ namespace Entity {
         public void SetInvincible(bool pActive) => IsInvincible = pActive;
         
        //==================================================||Unity 
+       private void Awake() {
+           Cursor.lockState = CursorLockMode.Confined;
+           Movement = new KeyboardMovement(5);
+           Attack = new ProjectileAttack(this, 5, 15, 1, 0.3f, 30f);          
+       }
+       
        private void Update() {
-           transform.position += Movement.GetDirection() * (_speed * Time.deltaTime);
+           transform.position += Movement.GetDelta();
            CardInventory.Update(this);
+           Attack.Update();
+       }
+
+       [TestMethod]
+       private void ProjectileCntUp() {
+           (Attack as IMultipleAttack)!.AttackCnt++;
        }
     }
 }

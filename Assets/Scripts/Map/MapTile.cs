@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Map {
     public class MapTile: ObjBase<MapTile> {
-        public const float Size = 9; 
+        public const float Size = 3; 
         public Vector2Int Pos { get; private set; }
 
         public void SetPos(Vector2Int pPos) {
@@ -17,7 +17,7 @@ namespace Map {
         private void Update() {
             if (!IsExist) return;
             var term = Pos - Player.Instance.GridPos;
-            if(Mathf.Abs(term.x) > 1 || Mathf.Abs(term.y) > 1)
+            if(Mathf.Abs(term.x) > MapManager.MapRadius || Mathf.Abs(term.y) > MapManager.MapRadius)
                 Hide();
         }
 

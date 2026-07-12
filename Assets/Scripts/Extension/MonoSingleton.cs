@@ -26,7 +26,6 @@ namespace Extension {
 		}
 
 		protected virtual bool IsNarrowSingleton => false;
-		protected virtual bool AllowAutoGen => true;
 		
 		//==================================================||Unity	
 		protected virtual void OnEnable() {
