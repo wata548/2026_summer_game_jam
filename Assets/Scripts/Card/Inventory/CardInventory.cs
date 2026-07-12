@@ -5,6 +5,9 @@ using Entity;
 
 namespace Card.Inventory {
     public class CardInventory {
+        //==================================================||Properties 
+        public int Cnt => _cards.Count;
+        
         //==================================================||Fields 
         private readonly List<CardBase> _cards = new();
 
@@ -12,13 +15,13 @@ namespace Card.Inventory {
         public void Get(IEntity pTarget, int pId) {
             var temp = _cards.FirstOrDefault(card => card.Id == pId);
             if (temp != null) {
-                temp.LevelUp();
+                temp.LevelUp(pTarget);
                 return;
             }
                 
             var targetType = Type.GetType($"Card.Card{pId}")!;
             var instance = (Activator.CreateInstance(targetType) as CardBase)!;
-            instance.OnGet(pTarget);
+            instance.ApplyPassive(pTarget, true);
             _cards.Add(instance);
         }
 

@@ -1,15 +1,12 @@
 using System;
 using Card.Inventory;
 using Entity.AttackModule;
-using Entity.AttackModule.Implements;
 using Entity.AttackModule.Implements.Player;
 using Extension;
 using Extension.Test;
 using Map;
 using Movement;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Entity {
     public class Player: MonoSingleton<Player>, IEntity {
@@ -31,7 +28,18 @@ namespace Entity {
         public IAttack Attack { get; private set; }
         
         public bool IsInvincible { get; private set; } = false;
-        public int MaxHp { get; private set; } = 100;
+        public int MaxHp {
+            get => _maxHp;
+            set {
+                if (value > 0) {
+                    _maxHp += value;
+                    //Heal(value / 2);
+                    return;
+                }
+                _maxHp -= value;
+                Hp = Mathf.Min(Hp, MaxHp);
+            }
+        }
         public int Hp { get; private set; } = 100;
         public int Guard { get; private set; } = 0;
         public int Power { get; private set; } = 20;
@@ -40,6 +48,9 @@ namespace Entity {
             Mathf.RoundToInt(transform.position.x / MapTile.Size),
             Mathf.RoundToInt(transform.position.y / MapTile.Size)
         );
+        //==================================================||Fields 
+        private int _maxHp = 100;
+        
         //==================================================||Methods 
         public void ReceiveDamage(int pAmount) {
 

@@ -34,7 +34,7 @@ namespace Entity.AttackModule.Implements.Player {
        //==================================================||Fields 
         private int _attackCnt = 1; 
         
-        private readonly int _power; 
+        private int _power; 
         private float _powerMultiplier = 1; 
         
         private readonly float _coolTime; 
@@ -60,8 +60,12 @@ namespace Entity.AttackModule.Implements.Player {
            var newProjectile = ProjectilePool.Instance.Pool.Get();
            newProjectile.Init(Owner, Speed, Power, pRadian);
        }
-       
-        public void Update() {
+
+       public void AddDefaultPower(int pPoint) {
+           _power += pPoint;
+       }
+
+       public void Update() {
             if (_remainTime < CoolTime) {
                 _remainTime += Time.deltaTime;
                 return;

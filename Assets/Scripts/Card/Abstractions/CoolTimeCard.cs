@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Card {
     public abstract class CoolTimeCard: CardBase {
+        public override bool IsActive => InSkill;
         public abstract float CoolTime { get; }
         public abstract float Duration { get; }
         public float CurTime { get; private set; }

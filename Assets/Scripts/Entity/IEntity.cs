@@ -14,7 +14,7 @@ namespace Entity {
         IMovement Movement{ get; }
         IAttack Attack { get; }
         bool IsInvincible{ get; }
-        int MaxHp{ get; }
+        int MaxHp{ get; set; }
         int Hp{ get; }
         int Guard { get; }
         
