@@ -35,8 +35,7 @@ namespace Card {
         
         public override void Update(IEntity pTarget)
         {
-            if (IsHealing == true)
-            {
+            if (IsHealing == true) {
                 timer += Time.deltaTime;
                 if(timer % 5 == 0) OnHeal(pTarget, heals[Level]);
             }

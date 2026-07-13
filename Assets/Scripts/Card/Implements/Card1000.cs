@@ -17,7 +17,7 @@ namespace Card {
                 case < 1:
                     if (pApply && Player.Instance.CardInventory.Cnt != 1)
                         break;
-                    IsActive = true;
+                    IsActive = pApply;
                     pTarget.Attack.PowerMultiplier += 0.25f * symbol;
                     if (pTarget.Attack is ICoolTimeAttack attack1)
                         attack1.CoolTimeMultiplier -= 0.1f * symbol;
@@ -25,12 +25,17 @@ namespace Card {
                 case 2:
                     if (Player.Instance.CardInventory.Cnt != 1)
                         break;
-                    IsActive = true;
+                    IsActive = pApply;
                     pTarget.Attack.PowerMultiplier += 0.45f * symbol;
                     if (pTarget.Attack is ICoolTimeAttack attack2)
                         attack2.CoolTimeMultiplier -= 0.3f * symbol;
                     break;
             }
+        }
+
+        public override void OnAddCard(IEntity pTarget) {
+            ApplyPassive(pTarget, false);
+            ApplyPassive(pTarget, true);
         }
     }
 }

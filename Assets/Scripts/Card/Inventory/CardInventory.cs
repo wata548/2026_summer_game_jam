@@ -27,42 +27,47 @@ namespace Card.Inventory {
 		}
 
 		public bool Remove(IEntity pTarget, int pId) {
-            var temp = _cards.FirstOrDefault(card => card.Id == pId);
-            if (temp == null) return false;
+			var temp = _cards.FirstOrDefault(card => card.Id == pId);
+			if (temp == null) return false;
             
-            temp.ApplyPassive(pTarget, false);
-            temp.OnRemove(pTarget);
-            _cards.Remove(temp);
-            return true;
+			temp.ApplyPassive(pTarget, false);
+			temp.OnRemove(pTarget);
+			_cards.Remove(temp);
+			return true;
 		}
 
 		public void Update(IEntity pTarget) {
-			foreach(var card in _cards)
+			foreach (var card in _cards) {
+				if(!card.IsActive) continue;
 				card.Update(pTarget);
+			}
+				
 		}
 
 		//==================================================||CallBacks 
 		public void OnReceiveDamage(IEntity pTarget, int pAmount) {
-			foreach(var card in _cards)
+			foreach (var card in _cards) {
+				if(!card.IsActive) continue;
 				card.OnReceiveDamage(pTarget, pAmount);
+			}
 		}
         
 		public void OnDeath(IEntity pTarget) {
 			foreach (var card in _cards) {
-				if(card.IsActive)
-					card.OnDeath(pTarget);
+				if(!card.IsActive) continue;
+				card.OnDeath(pTarget);
 			}
 		}
 		public void OnHeal(IEntity pTarget, int pAmount) {
 			foreach (var card in _cards) {
-				if(card.IsActive)
-					card.OnHeal(pTarget, pAmount);
+				if(!card.IsActive) continue;
+				card.OnHeal(pTarget, pAmount);
 			}
 		}
 		public void OnAddGuard(IEntity pTarget, int pAmount) {
 			foreach (var card in _cards) {
-				if(card.IsActive)
-					card.OnAddGuard(pTarget, pAmount);
+				if(!card.IsActive) continue;
+				card.OnAddGuard(pTarget, pAmount);
 			}
 		}
 	}

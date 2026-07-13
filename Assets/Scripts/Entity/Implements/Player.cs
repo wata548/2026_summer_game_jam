@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Card.Inventory;
+using Data.Item;
 using Data.Level;
 using Entity.AttackModule;
 using Entity.AttackModule.Implements.Player;
@@ -30,6 +31,7 @@ namespace Entity {
 		//==================================================||Properties 
         
 		public readonly CardInventory CardInventory = new();
+		public readonly ItemInventory ItemInventory = new();
 		public Level Level { get; private set; } = new();
 
 		public Vector3 Pos => transform.position;

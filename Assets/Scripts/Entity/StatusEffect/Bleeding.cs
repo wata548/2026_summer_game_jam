@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace StatusEffect {
 	public class Bleeding: StatusEffectBase {
-		public Bleeding(float pDuration, IEntity pTarget) : base(pDuration, pTarget) { }
+		public Bleeding(float pDuration) : base(pDuration) { }
 		private const float DamageTerm = 3;
 		private float _timer = DamageTerm;
 		
