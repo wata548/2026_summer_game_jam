@@ -33,7 +33,7 @@ namespace Entity {
             set {
                 if (value > 0) {
                     _maxHp += value;
-                    //Heal(value / 2);
+                    Heal(value / 2);
                     return;
                 }
                 _maxHp -= value;
@@ -42,6 +42,11 @@ namespace Entity {
         }
         public int Hp { get; private set; } = 100;
         public int Guard { get; private set; } = 0;
+
+        public float DamageDownMultiplier {
+            get => _damageDownMultiplier;
+            set => _damageDownMultiplier = Mathf.Max(value, 0);
+        }
         public int Power { get; private set; } = 20;
         
         public Vector2Int GridPos => new(
@@ -50,6 +55,7 @@ namespace Entity {
         );
         //==================================================||Fields 
         private int _maxHp = 100;
+        private float _damageDownMultiplier = 1;
         
         //==================================================||Methods 
         public void ReceiveDamage(int pAmount) {
@@ -59,7 +65,8 @@ namespace Entity {
                 CardInventory.OnReceiveDamage(this, 0);
                 return;
             }
-            
+
+            pAmount = Mathf.CeilToInt(pAmount * _damageDownMultiplier);
             var guardApplied = false;
             var damage = pAmount;
             if (Guard > 0) {

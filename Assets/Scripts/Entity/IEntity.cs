@@ -17,6 +17,7 @@ namespace Entity {
         int MaxHp{ get; set; }
         int Hp{ get; }
         int Guard { get; }
+        float DamageDownMultiplier { get; set; }
         
         void ReceiveDamage(int pAmount);
         void Heal(int pAmount);

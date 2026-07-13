@@ -38,6 +38,5 @@ namespace Card {
         public virtual void OnHeal(IEntity pTarget, int pAmount) {}
         public virtual void OnAddGuard(IEntity pTarget, int pAmount) {}
         public virtual void OnAddCard(IEntity pTarget) {}
-        
     }
 }
