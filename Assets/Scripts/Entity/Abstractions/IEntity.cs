@@ -1,6 +1,7 @@
 using System;
 using Entity.AttackModule;
 using Movement;
+using StatusEffect;
 using UnityEngine;
 
 namespace Entity {
@@ -13,6 +14,7 @@ namespace Entity {
         Vector3 Pos{ get; }
         IMovement Movement{ get; }
         IAttack Attack { get; }
+        StatusEffectBase StatusEffect { get; set; }
         bool IsInvincible{ get; set; }
         int MaxHp{ get; set; }
         int Hp{ get; }

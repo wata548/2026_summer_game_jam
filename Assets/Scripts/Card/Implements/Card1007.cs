@@ -48,12 +48,21 @@ namespace Card
             {
                 timer -= Time.deltaTime;
                 if (timer > 0) return;
-                pTarget.Attack.PowerMultiplier -= AttackReinforce[Level - 1];
-                pTarget.Movement.SpeedMultiplier -= SpeedReinforce[Level - 1];
+                CancelEffect(pTarget);
                 IsReinforcing=false;
             }
         }
 
+        public void CancelEffect(IEntity pTarget) {
+            if (IsReinforcing) {
+                pTarget.Attack.PowerMultiplier -= AttackReinforce[Level - 1];
+                pTarget.Movement.SpeedMultiplier -= SpeedReinforce[Level - 1];
+            }
+        } 
+
+        public override void OnRemove(IEntity pTarget) {
+            CancelEffect(pTarget);
+        }
     }
 }
 //코드이따위로짜면안될것같은데 이거맞나...

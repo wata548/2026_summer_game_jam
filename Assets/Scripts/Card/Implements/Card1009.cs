@@ -25,5 +25,9 @@ namespace Card
 		{
 			pTarget.IsInvincible = false;
 		}
+
+		public override void OnRemove(IEntity pTarget) {
+			ExitSkill(pTarget);
+		}
 	}
 }

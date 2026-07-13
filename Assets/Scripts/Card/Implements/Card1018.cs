@@ -12,6 +12,8 @@ namespace Card
 		public override float[] Duration => _duration;
 		private readonly float[] _coolTime = {20, 20, 20};
 		private readonly float[] _duration = {10, 10, 10};
+        private readonly float[] _powerDelta = { 0.4f, 0.45f, 0.55f};
+        private readonly float[] _damageDelta = {0.2f, 0.25f, 0.3f};
 
         public override int Id => 1018;
 
@@ -26,21 +28,8 @@ namespace Card
 
         private void Apply(IEntity pTarget, bool pApply) {
             var symbol = pApply ? 1 : -1;
-            switch (Level) {
-                case 0:
-                    pTarget.Attack.PowerMultiplier += 0.4f * symbol;
-                    pTarget.DamageDownMultiplier += 0.2f * symbol;
-                    break;
-                case 1:
-                    pTarget.Attack.PowerMultiplier += 0.45f * symbol;
-                    pTarget.DamageDownMultiplier += 0.25f * symbol;
-                    break;
-                case 2:
-                    pTarget.Attack.PowerMultiplier += 0.4f * symbol;
-                    pTarget.DamageDownMultiplier += 0.2f * symbol;
-                    break;
-            }
-
+            pTarget.Attack.PowerMultiplier += _powerDelta[Level] * symbol;
+            pTarget.DamageDownMultiplier += _damageDelta[Level] * symbol;
         }
     }
 }

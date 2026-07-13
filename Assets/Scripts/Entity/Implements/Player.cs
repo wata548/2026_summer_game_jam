@@ -6,6 +6,8 @@ using Extension;
 using Extension.Test;
 using Map;
 using Movement;
+using NUnit.Framework;
+using StatusEffect;
 using UnityEngine;
 
 namespace Entity {
@@ -26,7 +28,17 @@ namespace Entity {
         public Vector3 Pos => transform.position;
         public IMovement Movement { get; private set; }
         public IAttack Attack { get; private set; }
-        
+
+        public StatusEffectBase StatusEffect {
+            get => _statusEffect;
+            set {
+                if(_statusEffect?.Alive ?? false)
+                    _statusEffect.ExitEffect(this);
+                _statusEffect = value;
+                _statusEffect.StartEffect(this);
+            }
+        }
+
         public bool IsInvincible { get; set; } = false;
         public int MaxHp {
             get => _maxHp;
@@ -56,6 +68,7 @@ namespace Entity {
         //==================================================||Fields 
         private int _maxHp = 100;
         private float _damageDownMultiplier = 1;
+        private StatusEffectBase _statusEffect = null;
         
         //==================================================||Methods 
         public void ReceiveDamage(int pAmount) {
@@ -112,6 +125,7 @@ namespace Entity {
        
        private void Update() {
            transform.position += Movement.GetDelta(this);
+           _statusEffect?.Update(this);
            CardInventory.Update(this);
            Attack.Update();
        }

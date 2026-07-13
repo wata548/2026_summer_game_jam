@@ -1,6 +1,7 @@
 using System;
 using Entity.AttackModule;
 using Movement;
+using StatusEffect;
 using UnityEngine;
 
 namespace Entity {
@@ -40,6 +41,18 @@ namespace Entity {
             set => _damageDownMultiplier = Mathf.Max(value, 0);
         }
 		private float _damageDownMultiplier = 1;
+		
+		public StatusEffectBase StatusEffect {
+			get => _statusEffect;
+			set {
+				if(_statusEffect?.Alive ?? false)
+					_statusEffect.ExitEffect(this);
+				_statusEffect = value;
+				_statusEffect.StartEffect(this);
+			}
+		}
+		private StatusEffectBase _statusEffect = null;
+		
 		
 		//==================================================Methods	
 		public void ReceiveDamage(int pAmount) {
@@ -85,6 +98,12 @@ namespace Entity {
 		protected virtual void Awake() {
 			Movement = new TracePlayer(_speed, _traceRange);
 			Hp = MaxHp;
+		}
+
+		protected virtual void Update() {
+			StatusEffect?.Update(this);
+			transform.position += Movement.GetDelta(this);
+			Attack.Update();
 		}
 	}
 }
