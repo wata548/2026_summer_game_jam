@@ -883,8 +883,9 @@ GameObject:
   - component: {fileID: 893315861}
   - component: {fileID: 893315863}
   - component: {fileID: 893315862}
+  - component: {fileID: 893315864}
   m_Layer: 5
-  m_Name: Image
+  m_Name: HPbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -949,6 +950,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 893315860}
   m_CullTransparentMesh: 1
+--- !u!114 &893315864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893315860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4d4445d60338d9458139ecf0ac7c0a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HPbar
+  _fill: {fileID: 0}
+  _context: {fileID: 0}
 --- !u!1 &1111024014
 GameObject:
   m_ObjectHideFlags: 0
