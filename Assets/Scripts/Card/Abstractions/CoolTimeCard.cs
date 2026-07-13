@@ -9,7 +9,9 @@ namespace Card {
         public float CurTime { get; private set; }
         public bool InSkill { get; private set; } = true;
 
-        public abstract void SkillImplement(IEntity pTarget);
+        public virtual void SkillImplement(IEntity pTarget){}
+        public virtual void EnterSkill(IEntity pTarget){}
+        public virtual void ExitSkill(IEntity pTarget){}
         
         public sealed override void Update(IEntity pTarget) {
             CurTime += Time.deltaTime;
