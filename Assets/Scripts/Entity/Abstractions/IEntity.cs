@@ -10,7 +10,10 @@ namespace Entity {
         event Action<IEntity, int, bool> OnReceiveDamage;
         event Action<IEntity> OnDeath;
         event Action<IEntity, int> OnHeal;
-        public event Action<IEntity, int> OnAddGuard;
+        event Action<IEntity> OnHpChange;
+        event Action<IEntity, int> OnAddGuard;
+        event Action<IEntity, bool> ChangeInvincibleValue;
+        event Action<IEntity, Vector3> OnMove;
         
         Vector3 Pos{ get; }
         IMovement Movement{ get; }

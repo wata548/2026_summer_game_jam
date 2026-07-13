@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Card.Inventory;
+using Data.Level;
 using Entity.AttackModule;
 using Entity.AttackModule.Implements.Player;
 using Extension;
@@ -12,6 +13,7 @@ using StatusEffect;
 using UnityEngine;
 
 namespace Entity {
+	
 	public class Player: MonoSingleton<Player>, IEntity {
 		//==================================================||Singleton Option 
 		protected override bool IsNarrowSingleton => true;
@@ -19,12 +21,16 @@ namespace Entity {
 		//==================================================||Events 
 		public event Action<IEntity, int, bool> OnReceiveDamage;
 		public event Action<IEntity, int> OnHeal;
+		public event Action<IEntity> OnHpChange;
 		public event Action<IEntity> OnDeath;
 		public event Action<IEntity, int> OnAddGuard;
+		public event Action<IEntity, bool> ChangeInvincibleValue;
+		public event Action<IEntity, Vector3> OnMove;
         
 		//==================================================||Properties 
         
 		public readonly CardInventory CardInventory = new();
+		public Level Level { get; private set; } = new();
 
 		public Vector3 Pos => transform.position;
 		public IMovement Movement { get; private set; }
@@ -32,7 +38,14 @@ namespace Entity {
 
 		public IEnumerable<StatusEffectBase> StatusEffects => _statusEffects;
 
-		public bool IsInvincible { get; set; } = false;
+		public bool IsInvincible {
+			get => _isInvincible;
+			set {
+				_isInvincible = value;
+				ChangeInvincibleValue?.Invoke(this, _isInvincible);
+			}
+		}
+		
 		public int MaxHp {
 			get => _maxHp;
 			set {
@@ -60,15 +73,17 @@ namespace Entity {
 		);
 		//==================================================||Fields 
 		private int _maxHp = 100;
+		private bool _isInvincible = false;
 		private float _damageDownMultiplier = 1;
 		private List<StatusEffectBase> _statusEffects = new();
         
 		//==================================================||Methods 
+		[TestMethod]
 		public void ReceiveDamage(int pAmount) {
 
 			if (IsInvincible) {
-				OnReceiveDamage?.Invoke(this, 0, true);
-				CardInventory.OnReceiveDamage(this, 0);
+				//OnReceiveDamage?.Invoke(this, 0, true);
+				//CardInventory.OnReceiveDamage(this, 0);
 				return;
 			}
 
@@ -77,8 +92,10 @@ namespace Entity {
 			var damage = pAmount;
 			if (Guard > 0) {
 				guardApplied = true;
-				if (Guard >= pAmount)
+				if (Guard >= pAmount) {
 					Guard -= pAmount;
+					pAmount = 0;
+				}
 				else {
 					pAmount -= Guard;
 					Guard = 0;
@@ -87,6 +104,7 @@ namespace Entity {
             
 			Hp = Mathf.Max(Hp - pAmount, 0);
             
+			OnHpChange?.Invoke(this);
 			OnReceiveDamage?.Invoke(this, damage, guardApplied);
 			CardInventory.OnReceiveDamage(this, pAmount);
 			if (Hp <= 0) {
@@ -97,12 +115,15 @@ namespace Entity {
 			}
 		}
 
+		[TestMethod]
 		public void Heal(int pAmount) {
 			Hp = Mathf.Min(Hp + pAmount, MaxHp);
+			OnHpChange?.Invoke(this);
 			OnHeal?.Invoke(this, pAmount);
 			CardInventory.OnHeal(this, pAmount);
 		}
 
+		[TestMethod]
 		public void AddGuard(int pAmount) {
 			Guard += pAmount;
 			OnAddGuard?.Invoke(this, pAmount);
@@ -117,18 +138,24 @@ namespace Entity {
 
 		//==================================================||Unity 
 		private void Awake() {
-			Cursor.lockState = CursorLockMode.Confined;
 			Movement = new KeyboardMovement(5);
 			Attack = new ProjectileAttack(this, 5, 15, 1, 0.3f, 30f);          
 		}
        
 		private void Update() {
-			transform.position += Movement.GetDelta(this);
+			
+			var velo = Movement.GetDelta(this);
+			OnMove?.Invoke(this, velo);
+			transform.position += velo * Time.deltaTime;
+			
 			foreach (var effect in _statusEffects) {
 				effect.Update(this);
 			}
 			CardInventory.Update(this);
 			Attack.Update();
 		}
+
+		[TestMethod] private void SetIv(bool pV) => IsInvincible = pV;
+		[TestMethod] private void GetExp(int pV) => Level.GetExp(pV);
 	}
 }

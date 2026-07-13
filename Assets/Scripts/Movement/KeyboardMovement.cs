@@ -8,7 +8,7 @@ namespace Movement {
         
        //==================================================||Properties 
         public bool MoveFlip { get; set; }
-        public float Speed { get;}
+        public float Speed { get; }
         public float SpeedMultiplier {
             get => _speedMultiplier;
             set => _speedMultiplier = Mathf.Max(value, 0);
@@ -31,7 +31,7 @@ namespace Movement {
             var result = _keyDirectionMatch
                 .Where(kvp => Input.GetKey(kvp.Key))
                 .Aggregate(Vector3.zero, (current, kvp) => current + kvp.Value);
-            var power = (MoveFlip ? -1 : 1) * Speed * Time.deltaTime;
+            var power = (MoveFlip ? -1 : 1) * Speed;
             return result.normalized * power;
         }
     }

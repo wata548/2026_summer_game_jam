@@ -13,7 +13,10 @@ namespace Entity {
 		public event Action<IEntity, int, bool> OnReceiveDamage;
 		public event Action<IEntity> OnDeath;
 		public event Action<IEntity, int> OnHeal;
+		public event Action<IEntity> OnHpChange;
 		public event Action<IEntity, int> OnAddGuard;
+		public event Action<IEntity, bool> ChangeInvincibleValue;
+		public event Action<IEntity, Vector3> OnMove;
 		
 		//==================================================Fields	
 		
@@ -22,7 +25,7 @@ namespace Entity {
 		[SerializeField] private float _traceRange;
 		[SerializeField] private int _maxHp;
 		private float _damageDownMultiplier = 1;
-		private StatusEffectBase _statusEffect = null;
+		private bool _isInvincible = false;
 		private List<StatusEffectBase> _statusEffects = new();
 		
 		//==================================================Properties	
@@ -31,7 +34,13 @@ namespace Entity {
 		public IMovement Movement { get; protected set; }
 		public IAttack Attack { get; protected set; }
 		public IEnumerable<StatusEffectBase> StatusEffects => _statusEffects;
-		public bool IsInvincible { get; set; } = false;
+		public bool IsInvincible {
+			get => _isInvincible;
+			set {
+				_isInvincible = value;
+				ChangeInvincibleValue?.Invoke(this, _isInvincible);
+			}
+		}
 		public int MaxHp {
 			get => _maxHp;
 			set {
@@ -55,7 +64,7 @@ namespace Entity {
 		public void ReceiveDamage(int pAmount) {
 
 			if (IsInvincible) {
-				OnReceiveDamage?.Invoke(this, 0, true);
+				//OnReceiveDamage?.Invoke(this, 0, true);
 				return;
 			}
 
@@ -64,8 +73,10 @@ namespace Entity {
 			var damage = pAmount;
 			if (Guard > 0) {
 				guardApplied = true;
-				if (Guard >= pAmount)
+				if (Guard >= pAmount) {
 					Guard -= pAmount;
+					pAmount = 0;
+				}
 				else {
 					pAmount -= Guard;
 					Guard = 0;
@@ -74,6 +85,7 @@ namespace Entity {
             
 			Hp = Mathf.Max(Hp - pAmount, 0);
             
+			OnHpChange?.Invoke(this);
 			OnReceiveDamage?.Invoke(this, damage, guardApplied);
 			if (Hp <= 0) {
 				OnDeath?.Invoke(this);
@@ -82,6 +94,7 @@ namespace Entity {
 
 		public void Heal(int pAmount) {
 			Hp = Mathf.Min(Hp + pAmount, MaxHp);
+			OnHpChange?.Invoke(this);
 			OnHeal?.Invoke(this, pAmount);
 		}
 
@@ -103,11 +116,16 @@ namespace Entity {
 		}
 
 		protected virtual void Update() {
-			transform.position += Movement.GetDelta(this);
+			var velo = Movement.GetDelta(this);
+			OnMove?.Invoke(this, velo);
+			transform.position += velo * Time.deltaTime;
+			
 			foreach (var effect in _statusEffects) {
 				effect.Update(this);
 			}
+			
 			Attack.Update();
 		}
+		
 	}
 }
