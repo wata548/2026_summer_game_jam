@@ -103,8 +103,6 @@ namespace Entity {
             CardInventory.OnAddGuard(this, pAmount);
         }
 
-        public void SetInvincible(bool pActive) => IsInvincible = pActive;
-        
        //==================================================||Unity 
        private void Awake() {
            Cursor.lockState = CursorLockMode.Confined;
@@ -113,7 +111,7 @@ namespace Entity {
        }
        
        private void Update() {
-           transform.position += Movement.GetDelta();
+           transform.position += Movement.GetDelta(this);
            CardInventory.Update(this);
            Attack.Update();
        }

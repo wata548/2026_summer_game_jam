@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Entity;
 using UnityEngine;
 
 namespace Movement {
@@ -26,7 +27,7 @@ namespace Movement {
         public KeyboardMovement(float pSpeed) => Speed = pSpeed;
 
         //==================================================||Methods 
-        public Vector3 GetDelta() {
+        public Vector3 GetDelta(IEntity pTarget) {
             var result = _keyDirectionMatch
                 .Where(kvp => Input.GetKey(kvp.Key))
                 .Aggregate(Vector3.zero, (current, kvp) => current + kvp.Value);

@@ -15,7 +15,7 @@ namespace Card {
                     pTarget.Attack.PowerMultiplier -= 0.05f * symbol;
                     break;
                 case < 1:
-                    if (Player.Instance.CardInventory.Cnt != 1)
+                    if (pApply && Player.Instance.CardInventory.Cnt != 1)
                         break;
                     IsActive = true;
                     pTarget.Attack.PowerMultiplier += 0.25f * symbol;
