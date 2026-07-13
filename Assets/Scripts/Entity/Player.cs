@@ -27,7 +27,7 @@ namespace Entity {
         public IMovement Movement { get; private set; }
         public IAttack Attack { get; private set; }
         
-        public bool IsInvincible { get; private set; } = false;
+        public bool IsInvincible { get; set; } = false;
         public int MaxHp {
             get => _maxHp;
             set {

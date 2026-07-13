@@ -13,7 +13,7 @@ namespace Entity {
         Vector3 Pos{ get; }
         IMovement Movement{ get; }
         IAttack Attack { get; }
-        bool IsInvincible{ get; }
+        bool IsInvincible{ get; set; }
         int MaxHp{ get; set; }
         int Hp{ get; }
         int Guard { get; }

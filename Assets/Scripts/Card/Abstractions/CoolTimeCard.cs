@@ -17,7 +17,12 @@ namespace Card {
             CurTime += Time.deltaTime;
             if ((InSkill && CurTime >= Duration) || (!InSkill && CurTime >= CoolTime)) {
                 CurTime = 0;
+                
                 InSkill = !InSkill;
+                if (InSkill)
+                    EnterSkill(pTarget);
+                else
+                    ExitSkill(pTarget);
             }
             if (InSkill) {
                 SkillImplement(pTarget);
