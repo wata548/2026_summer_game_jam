@@ -6,45 +6,52 @@ using UnityEngine;
 
 namespace Card
 {
-    class Card1012 : CardBase
+    class Card1012 : CoolTimeCard
     {
+        public override bool IsActive { protected set => throw new NotImplementedException(); }
+        public override float CoolTime => 30;
+
+        public override float Duration => 10;
+
         public override int Id => 1012;
 
-        public override bool IsActive { get; protected set; } = true;
-        float timer;
-
-        void update()
+        public override void EnterSkill(IEntity pTarget)
         {
-            timer += Time.deltaTime;
+            switch (Level)
+            {
+                case 0:
+                    pTarget.Movement.MoveFlip = true;
+                    pTarget.MaxHp += 50;
+                    break;
+                case 1:
+                    pTarget.Movement.MoveFlip = true;
+                    pTarget.MaxHp += 50;
+                    break;
+                case 2:
+                    pTarget.Movement.MoveFlip = true;
+                    pTarget.MaxHp += 50;
+                    break;
+            }
         }
-        public override void ApplyPassive(IEntity pTarget, bool pApply)
+        public override void ExitSkill(IEntity pTarget)
         {
-            var symbol = pApply ? 1 : -1;
 
             switch (Level)
             {
                 case 0:
-                    if(timer%40 == 29)
-                    {
-                        pTarget.Movement.MoveFlip = true;
-                        pTarget.MaxHp += 50;
-                    }
-                    if (timer % 40 == 39)
-                    {
-                        pTarget.Movement.MoveFlip = false;
-                        pTarget.MaxHp -= 50;
-                    }
-                    
+                    pTarget.Movement.MoveFlip = true;
+                    pTarget.MaxHp -= 50;
                     break;
                 case 1:
-                    pTarget.Attack.PowerMultiplier += 0.1f;
-                    pTarget.MaxHp += 20;
+                    pTarget.Movement.MoveFlip = true;
+                    pTarget.MaxHp += 50;
                     break;
                 case 2:
-                    pTarget.Attack.PowerMultiplier += 0.15f;
-                    pTarget.MaxHp += 30;
+                    pTarget.Movement.MoveFlip = true;
+                    pTarget.MaxHp += 50;
                     break;
             }
         }
+
     }
 }

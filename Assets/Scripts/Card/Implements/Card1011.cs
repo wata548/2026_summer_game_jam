@@ -17,15 +17,15 @@ namespace Card
             switch (Level)
             {
                 case 0:
-                    pTarget.Attack.PowerMultiplier += 0.15f * symbol    ;
+                    pTarget.Attack.PowerMultiplier += 0.2f * symbol    ;
                     pTarget.MaxHp -= 25*symbol;
                     break;
                 case 1:
-                    pTarget.Attack.PowerMultiplier += 0.2f * symbol;
+                    pTarget.Attack.PowerMultiplier += 0.3f * symbol;
                     pTarget.MaxHp -= 20*symbol;
                     break;
                 case 2:
-                    pTarget.Attack.PowerMultiplier += 0.3f * symbol;
+                    pTarget.Attack.PowerMultiplier += 0.4f * symbol;
                     pTarget.MaxHp -= 15*symbol;
                     break;
             }

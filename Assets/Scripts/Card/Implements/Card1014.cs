@@ -19,7 +19,7 @@ namespace Card
             {
                 case 0:
                     pTarget.Attack.PowerMultiplier += 0.05f * symbol;
-                    //피감
+                    pTarget.DamageDownMultiplier += 0.05f * symbol;
                     if(pTarget.Attack is ICoolTimeAttack attack0)
                     {
                         attack0.CoolTimeMultiplier -= 0.05f*symbol;
@@ -28,6 +28,7 @@ namespace Card
                     break;
                 case 1:
                     pTarget.Attack.PowerMultiplier += 0.1f * symbol;
+                    pTarget.DamageDownMultiplier += 0.1f * symbol;
                     if (pTarget.Attack is ICoolTimeAttack attack1)
                     {
                         attack1.CoolTimeMultiplier -= 0.05f * symbol;
@@ -35,6 +36,7 @@ namespace Card
                     break;
                 case 2:
                     pTarget.Attack.PowerMultiplier += 0.15f * symbol;
+                    pTarget.DamageDownMultiplier += 0.15f * symbol;
                     if (pTarget.Attack is ICoolTimeAttack attack2)
                     {
                         attack2.CoolTimeMultiplier -= 0.05f * symbol;
