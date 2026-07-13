@@ -4,26 +4,29 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Assets.Scripts.Card.Implements
+namespace Card1017
 {
-    internal class Card1008 : CardBase
+    class Card1017 : CardBase
     {
-        public override int Id => 1008;
+        public override int Id => 1017;
 
         public override bool IsActive { get; protected set; } = true;
 
         public override void ApplyPassive(IEntity pTarget, bool pApply)
         {
             var symbol = pApply ? 1 : -1;
+
             switch (Level)
             {
                 case 0:
-                    pTarget.Attack.PowerMultiplier += 0.15f * symbol;
+                    pTarget.Movement.SpeedMultiplier += 0.1f * symbol;
                     break;
                 case 1:
+                    //인벤토리증가
                     pTarget.Attack.PowerMultiplier += 0.25f * symbol;
                     break;
                 case 2:
+                    //인벤토리증가
                     pTarget.Attack.PowerMultiplier += 0.35f * symbol;
                     break;
             }

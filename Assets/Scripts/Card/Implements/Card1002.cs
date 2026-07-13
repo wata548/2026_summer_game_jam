@@ -16,8 +16,9 @@ namespace Card
             switch (Level)
             {
                 case 0:
-                    
+
                     break;
             }
+        }
     }
 }

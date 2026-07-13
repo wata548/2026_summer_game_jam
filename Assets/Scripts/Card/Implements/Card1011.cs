@@ -1,14 +1,13 @@
-﻿using Card;
-using Entity;
+﻿using Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Assets.Scripts.Card.Implements
+namespace Card
 {
-    internal class Card1008 : CardBase
+    internal class Card1011 : CardBase
     {
-        public override int Id => 1008;
+        public override int Id => 1011;
 
         public override bool IsActive { get; protected set; } = true;
 
@@ -18,13 +17,16 @@ namespace Assets.Scripts.Card.Implements
             switch (Level)
             {
                 case 0:
-                    pTarget.Attack.PowerMultiplier += 0.15f * symbol;
+                    pTarget.Attack.PowerMultiplier += 0.15f * symbol    ;
+                    pTarget.MaxHp -= 25*symbol;
                     break;
                 case 1:
-                    pTarget.Attack.PowerMultiplier += 0.25f * symbol;
+                    pTarget.Attack.PowerMultiplier += 0.2f * symbol;
+                    pTarget.MaxHp -= 20*symbol;
                     break;
                 case 2:
-                    pTarget.Attack.PowerMultiplier += 0.35f * symbol;
+                    pTarget.Attack.PowerMultiplier += 0.3f * symbol;
+                    pTarget.MaxHp -= 15*symbol;
                     break;
             }
         }

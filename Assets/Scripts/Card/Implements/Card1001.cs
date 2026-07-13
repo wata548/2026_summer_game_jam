@@ -13,19 +13,20 @@ namespace Card
 
         public override void ApplyPassive(IEntity pTarget, bool pApply)
         {
+            var symbol = pApply ? 1 : -1;
             switch (Level)
             {
                 case 0:
-                    pTarget.Attack.PowerMultiplier += 0.05f;
-                    pTarget.MaxHp += 15;
+                    pTarget.Attack.PowerMultiplier += 0.05f*symbol;
+                    pTarget.MaxHp += 15 * symbol;
                     break;
                 case 1:
-                    pTarget.Attack.PowerMultiplier += 0.1f;
-                    pTarget.MaxHp += 20;
+                    pTarget.Attack.PowerMultiplier += 0.1f * symbol;
+                    pTarget.MaxHp += 20 * symbol;
                     break;
                 case 2:
-                    pTarget.Attack.PowerMultiplier += 0.15f;
-                    pTarget.MaxHp += 30;
+                    pTarget.Attack.PowerMultiplier += 0.15f * symbol;
+                    pTarget.MaxHp += 30 * symbol;
                     break;
             }
         }
