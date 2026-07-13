@@ -1,20 +1,23 @@
 ﻿using Entity;
+using Entity.AttackModule;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Card
 {
-    internal class Card1003 : CoolTimeCard
+    class Card1004 : CoolTimeCard
     {
         public override float[] CoolTime => _coolTime;
 
         public override float[] Duration => _duration;
-        private readonly float[] _coolTime = { 30, 20, 20 };
-        private readonly float[] _duration = { 5, 6, 10 };
-        public override int Id => 1003;
+        private readonly float[] _coolTime = { 20, 20, 20 };
+        private readonly float[] _duration = { 3, 3, 3 };
+
+        public override int Id => 1004;
 
         public override bool IsActive { protected set => throw new NotImplementedException(); }
+
         public override void EnterSkill(IEntity pTarget)
         {
             Apply(pTarget, true);
@@ -30,11 +33,16 @@ namespace Card
             switch (Level)
             {
                 case 0:
-                    //장판
+                    //구속
+                    //적데미지
                     break;
                 case 1:
+                    //구속
+                    //적데미지
                     break;
                 case 2:
+                    //구속
+                    //적데미지
                     break;
             }
 
