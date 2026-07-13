@@ -8,9 +8,10 @@ namespace Map {
         
         //==================================================||Fields 
         [SerializeField] private MapTile _defaultTile;
+        [SerializeField] private Sprite[] _tileSprites;
         private ObjPool<MapTile> _tilePool;
         private Vector2Int _lastPlayerPos;
-        public const int MapRadius = 3;
+        public const int MapRadius = 1;
         private const int MapLength = MapRadius * 2 + 1;
 
        //==================================================||Methods
@@ -28,9 +29,9 @@ namespace Map {
                for (int x = 0; x < MapLength; x++) {
                    if(exist[y * MapLength + x])
                        continue;
-                   _tilePool.Get().SetPos(
-                       new(_lastPlayerPos.x + x - MapRadius, _lastPlayerPos.y + y - MapRadius)
-                   );
+                   var pos = new Vector2Int(_lastPlayerPos.x + x - MapRadius, _lastPlayerPos.y + y - MapRadius);
+                   var spriteIdx = Mathf.Abs(pos.GetHashCode()) % _tileSprites.Length;
+                   _tilePool.Get().SetPos(pos, _tileSprites[spriteIdx]);
                }
            }
        }

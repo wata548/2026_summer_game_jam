@@ -2,9 +2,9 @@ using Entity;
 using UnityEngine;
 
 namespace StatusEffect {
-	public class Bleending: StatusEffectBase {
-		public Bleending(float pDuration, IEntity pTarget) : base(pDuration, pTarget) { }
-		private const float DamageTerm = 5;
+	public class Bleeding: StatusEffectBase {
+		public Bleeding(float pDuration, IEntity pTarget) : base(pDuration, pTarget) { }
+		private const float DamageTerm = 3;
 		private float _timer = DamageTerm;
 		
 		public override void StartEffect(IEntity pTarget) {

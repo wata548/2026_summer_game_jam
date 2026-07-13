@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Entity.AttackModule;
 using Movement;
 using StatusEffect;
@@ -14,7 +15,7 @@ namespace Entity {
         Vector3 Pos{ get; }
         IMovement Movement{ get; }
         IAttack Attack { get; }
-        StatusEffectBase StatusEffect { get; set; }
+        IEnumerable<StatusEffectBase> StatusEffects { get; }
         bool IsInvincible{ get; set; }
         int MaxHp{ get; set; }
         int Hp{ get; }
@@ -24,5 +25,7 @@ namespace Entity {
         void ReceiveDamage(int pAmount);
         void Heal(int pAmount);
         void AddGuard(int pAmount);
+
+        void AddStatusEffectBase(StatusEffectBase pEffect);
     }
 }

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Entity.AttackModule;
 using Movement;
 using StatusEffect;
@@ -12,15 +14,23 @@ namespace Entity {
 		public event Action<IEntity> OnDeath;
 		public event Action<IEntity, int> OnHeal;
 		public event Action<IEntity, int> OnAddGuard;
-
-		//==================================================Properties	
+		
+		//==================================================Fields	
+		
 		[Header("Stat")]
 		[SerializeField] private float _speed;
 		[SerializeField] private float _traceRange;
 		[SerializeField] private int _maxHp;
+		private float _damageDownMultiplier = 1;
+		private StatusEffectBase _statusEffect = null;
+		private List<StatusEffectBase> _statusEffects = new();
+		
+		//==================================================Properties	
+		
 		public Vector3 Pos => transform.position;
 		public IMovement Movement { get; protected set; }
 		public IAttack Attack { get; protected set; }
+		public IEnumerable<StatusEffectBase> StatusEffects => _statusEffects;
 		public bool IsInvincible { get; set; } = false;
 		public int MaxHp {
 			get => _maxHp;
@@ -37,22 +47,9 @@ namespace Entity {
 		public int Hp { get; private set; }
 		[field: SerializeField]public int Guard { get; private set; }
 		public float DamageDownMultiplier {
-            get => _damageDownMultiplier;
-            set => _damageDownMultiplier = Mathf.Max(value, 0);
-        }
-		private float _damageDownMultiplier = 1;
-		
-		public StatusEffectBase StatusEffect {
-			get => _statusEffect;
-			set {
-				if(_statusEffect?.Alive ?? false)
-					_statusEffect.ExitEffect(this);
-				_statusEffect = value;
-				_statusEffect.StartEffect(this);
-			}
+			get => _damageDownMultiplier;
+			set => _damageDownMultiplier = Mathf.Max(value, 0);
 		}
-		private StatusEffectBase _statusEffect = null;
-		
 		
 		//==================================================Methods	
 		public void ReceiveDamage(int pAmount) {
@@ -92,7 +89,12 @@ namespace Entity {
 			Guard += pAmount;
 			OnAddGuard?.Invoke(this, pAmount);
 		}
-
+		
+		public void AddStatusEffectBase(StatusEffectBase pEffect) {
+			pEffect.StartEffect(this);
+			_statusEffects = _statusEffects.Where(effect => effect.Alive).ToList();
+			_statusEffects.Add(pEffect);
+		}
 
 		//==================================================Unity	
 		protected virtual void Awake() {
@@ -101,8 +103,10 @@ namespace Entity {
 		}
 
 		protected virtual void Update() {
-			StatusEffect?.Update(this);
 			transform.position += Movement.GetDelta(this);
+			foreach (var effect in _statusEffects) {
+				effect.Update(this);
+			}
 			Attack.Update();
 		}
 	}
