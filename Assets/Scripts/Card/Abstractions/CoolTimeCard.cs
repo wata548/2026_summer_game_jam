@@ -4,8 +4,8 @@ using UnityEngine;
 namespace Card {
     public abstract class CoolTimeCard: CardBase {
         public override bool IsActive => InSkill;
-        public abstract float CoolTime { get; }
-        public abstract float Duration { get; }
+        public abstract float[] CoolTime { get; }
+        public abstract float[] Duration { get; }
         public float CurTime { get; private set; }
         public bool InSkill { get; private set; } = true;
 
@@ -13,9 +13,9 @@ namespace Card {
         public virtual void EnterSkill(IEntity pTarget){}
         public virtual void ExitSkill(IEntity pTarget){}
         
-        public sealed override void Update(IEntity pTarget) {
+        public override void Update(IEntity pTarget) {
             CurTime += Time.deltaTime;
-            if ((InSkill && CurTime >= Duration) || (!InSkill && CurTime >= CoolTime)) {
+            if ((InSkill && CurTime >= Duration[Level]) || (!InSkill && CurTime >= CoolTime[Level])) {
                 CurTime = 0;
                 
                 InSkill = !InSkill;
