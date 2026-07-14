@@ -135,7 +135,6 @@ namespace Entity {
 		}
 
 		public void AddStatusEffectBase(StatusEffectBase pEffect) {
-			pEffect.StartEffect(this);
 			_statusEffects = _statusEffects.Where(effect => effect.Alive).ToList();
 			_statusEffects.Add(pEffect);
 		}
@@ -151,6 +150,13 @@ namespace Entity {
 			var velo = Movement.GetDelta(this);
 			OnMove?.Invoke(this, velo);
 			transform.position += velo * Time.deltaTime;
+
+			if (Time.deltaTime != 0) {
+				for (int i = 1; i <= 9; i++) {
+					if(Input.GetKeyDown(KeyCode.Alpha0 + i))
+						ItemInventory.Use(i - 1);
+				}
+			}
 			
 			foreach (var effect in _statusEffects) {
 				effect.Update(this);
@@ -161,5 +167,7 @@ namespace Entity {
 
 		[TestMethod] private void SetIv(bool pV) => IsInvincible = pV;
 		[TestMethod] private void GetExp(int pV) => Level.GetExp(pV);
+		[TestMethod] private void GetItem(int pV) => ItemInventory.AddItem(pV);
+		[TestMethod] private void AddInvenSlot(int pV) => ItemInventory.AddInventorySize(pV);
 	}
 }
