@@ -21,5 +21,6 @@ namespace Card.Data {
 
         public CardDesc Get(int pId) =>
             _table.FirstOrDefault(kvp => kvp.Key == pId).Value;
+
     }
 }
