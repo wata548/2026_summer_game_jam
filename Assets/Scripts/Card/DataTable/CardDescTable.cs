@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CSVData.Extensions;
 using Extension.DataTable;
+using UnityEditor.Search;
 
 namespace Card.Data {
     public class CardDescTable: IQueryAbleDataTable<CardDesc> {
@@ -21,6 +22,5 @@ namespace Card.Data {
 
         public CardDesc Get(int pId) =>
             _table.FirstOrDefault(kvp => kvp.Key == pId).Value;
-
     }
 }

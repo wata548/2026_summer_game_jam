@@ -1,7 +1,5 @@
 using Card;
 using Entity;
-using System.Collections;
-using TestExtension;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
