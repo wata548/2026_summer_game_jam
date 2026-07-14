@@ -5,7 +5,7 @@ using UnityEngine;
 namespace UI.InGame {
 	public static class DataImage {
 		static DataImage() {
-			Sprites = Resources.LoadAll<Sprite>("NumberImages")
+            Sprites = Resources.LoadAll<Sprite>("NumberImages")
 				.ToDictionary(sprite => int.Parse(sprite.name), sprite => sprite);
 		}
 
