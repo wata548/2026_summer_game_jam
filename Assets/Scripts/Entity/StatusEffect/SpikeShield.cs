@@ -6,13 +6,16 @@ using UnityEngine;
 
 namespace StatusEffect
 {
-	internal class SpikeShield : StatusEffectBase
-	{
-		public SpikeShield() : base(int.MaxValue) { }
+	internal class SpikeShield : StatusEffectBase {
+		public SpikeShield(int pAmount) : base(int.MaxValue) => 
+			_amount = pAmount;
+		
 		private const float Term = 10;
 		private const int DecreaseGuard = 5;
+		private readonly int _amount;
 		private float _timer;
 		public override void StartEffect(IEntity pTarget) {
+			pTarget.AddGuard(_amount);
 			_timer = Term;
 		}
 
