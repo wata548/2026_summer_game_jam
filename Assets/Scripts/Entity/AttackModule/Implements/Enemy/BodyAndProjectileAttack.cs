@@ -2,15 +2,15 @@ using System;
 using UnityEngine;
 
 namespace Entity.AttackModule.Implements.Player {
-	public class ProjectileAttack: IProjectileAttack, ICoolTimeAttack, IMultipleAttack, IAttack {
-
+	public class BodyAndProjectileAttack: IProjectileAttack, ICoolTimeAttack, IAttack {
+        
+		//==================================================||Properties 
 		public event Action OnAttack;
 		public event Action CoolDownAnimation;
-
-		//==================================================||Properties 
 		public IEntity Owner { get; }
         
 		public int Power => Mathf.CeilToInt(_power * PowerMultiplier);
+		private int projectilePower => Mathf.CeilToInt(_projectilePower * PowerMultiplier);
 		public float PowerMultiplier {
 			get => _powerMultiplier; 
 			set => _powerMultiplier = Mathf.Max(value, 0);
@@ -22,13 +22,6 @@ namespace Entity.AttackModule.Implements.Player {
 			set => _coolTimeMultiplier = Mathf.Max(value, 0);
 		}
 
-		public int AttackCnt {
-			get => _attackCnt;
-			set => _attackCnt = Mathf.Max(value, 0);
-		}
-
-		public float Range { get; }
-
 		public float Speed => _speed * _speedTimeMultiplier;
 		public float SpeedMultiplier {
 			get => _speedTimeMultiplier;
@@ -36,10 +29,11 @@ namespace Entity.AttackModule.Implements.Player {
 		}
 
 		//==================================================||Fields 
-		private int _attackCnt = 1; 
-		private bool _coolDownAnimation = false; 
-        
+		private float _traceRange; 
+		
+		private readonly string _name; 
 		private int _power; 
+		private readonly int _projectilePower; 
 		private float _powerMultiplier = 1; 
         
 		private readonly float _coolTime; 
@@ -49,23 +43,27 @@ namespace Entity.AttackModule.Implements.Player {
 		private float _speedTimeMultiplier = 1;
         
 		private float _remainTime = 0;
-		private readonly float _coolDownAnimationTerm = 0;
+		private readonly float _animationTerm = 0;
+		private bool _coolDownAnimation = false;
+		private Vector3 _scale;
         
 		//==================================================||Constructors 
-		public ProjectileAttack(IEntity pUser, int pPower, float pSpeed, int pAttackCnt = 1, float pCoolTime = 0.5f, float pRange = 60f, float pCoolDownAnimatinoTerm = 0.1f) {
+		public BodyAndProjectileAttack(IEntity pUser, string pName, Vector3 pScale, int pPower, int pProjectilePower, float pSpeed, float pCoolTime, float pTrace, float pAnimatinoTerm) {
 			Owner = pUser;
+			_name = pName;
+			_projectilePower = pProjectilePower;
 			_power = pPower;
 			_speed = pSpeed;
-			_attackCnt = pAttackCnt;
 			_coolTime = pCoolTime;
-			Range = pRange * Mathf.Deg2Rad;
-			_coolDownAnimationTerm = pCoolDownAnimatinoTerm;
+			_traceRange = pTrace;
+			_scale = pScale;
+			_animationTerm = pAnimatinoTerm;
 		}  
         
 		//==================================================||Methods 
-		private void Generate(float pRadian) {
+		private void Generate(Vector3 pDirection) {
 			var newProjectile = ProjectilePool.Instance.Pool.Get();
-			newProjectile.Init(Owner, "Player", Vector3.one, Speed, Power, pRadian);
+			newProjectile.Init(Owner, _name, _scale, pDirection * Speed, projectilePower);
 		}
 
 		public void AddDefaultPower(int pPoint) {
@@ -74,37 +72,28 @@ namespace Entity.AttackModule.Implements.Player {
 
 		public void Update() {
 			if (_remainTime < CoolTime) {
-				if (!_coolDownAnimation && _remainTime >= CoolTime - _coolDownAnimationTerm) {
+				_remainTime += Time.deltaTime;
+				if ((Entity.Player.Instance.Pos - Owner.Pos).sqrMagnitude > _traceRange * _traceRange)
+					return;
+				
+				if (!_coolDownAnimation && _remainTime >= CoolTime - _animationTerm) {
 					CoolDownAnimation?.Invoke();
 					_coolDownAnimation = true;
 				}
-				_remainTime += Time.deltaTime;
 				return;
 			}
-
-			if (!_coolDownAnimation) {
+			
+			if ((Entity.Player.Instance.Pos - Owner.Pos).sqrMagnitude > _traceRange * _traceRange)
+				return;
+			
+			if(!_coolDownAnimation)
 				CoolDownAnimation?.Invoke();
-				_coolDownAnimation = true;
-			}
-
-			if (!Input.GetKeyDown(KeyCode.Mouse0)) return;
 
 			_coolDownAnimation = false;
-			_remainTime = 0;
 			OnAttack?.Invoke();
-			var mousePos = Input.mousePosition;
-			mousePos.x -= Screen.width / 2f;
-			mousePos.y -= Screen.height / 2f;
-			var radian = Mathf.Atan2(mousePos.y, mousePos.x);
-			if (_attackCnt == 1) {
-				Generate(radian);
-				return;
-			}
-
-			var term = Range / (_attackCnt - 1);
-			radian -= Range / 2f;
-			for(int i = 0; i < _attackCnt; i++, radian += term)
-				Generate(radian);
+			_remainTime = 0;
+			var direction = (Entity.Player.Instance.Pos - Owner.Pos).normalized;
+			Generate(direction);
 		}
 	}
 }

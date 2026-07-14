@@ -2,6 +2,7 @@ using Entity;
 
 namespace StatusEffect {
 	public class PowerUp:StatusEffectBase {
+		public override int Id => 3006;
 		private float _percent;
 
 		public PowerUp(float pPercent, float pDuration) : base(pDuration) {

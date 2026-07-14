@@ -14,8 +14,11 @@ using StatusEffect;
 using UnityEngine;
 
 namespace Entity {
-	
+	[RequireComponent(typeof(Rigidbody2D))]
 	public class Player: MonoSingleton<Player>, IEntity {
+		private const float KnockBack = 0.5f;
+		private const float DamageInvincibleDuration = 0.7f;
+		
 		//==================================================||Singleton Option 
 		protected override bool IsNarrowSingleton => true;
 
@@ -84,8 +87,6 @@ namespace Entity {
 		public void ReceiveDamage(int pAmount, bool pIgnoreDamageDownMultiplier = false) {
 
 			if (IsInvincible) {
-				//OnReceiveDamage?.Invoke(this, 0, true);
-				//CardInventory.OnReceiveDamage(this, 0);
 				return;
 			}
 
@@ -107,7 +108,7 @@ namespace Entity {
 			}
             
 			Hp = Mathf.Max(Hp - pAmount, 0);
-            
+
 			OnHpChange?.Invoke(this);
 			OnReceiveDamage?.Invoke(this, pAmount, guardApplied);
 			CardInventory.OnReceiveDamage(this, pAmount);
@@ -135,6 +136,12 @@ namespace Entity {
 		}
 
 		public void AddStatusEffectBase(StatusEffectBase pEffect) {
+			var effect = _statusEffects.Find(effect => effect.Id == pEffect.Id && pEffect.Alive);
+			if (effect != null) {
+				effect.SetDuration(pEffect.Duration);
+				return;
+			}
+			
 			_statusEffects = _statusEffects.Where(effect => effect.Alive).ToList();
 			_statusEffects.Add(pEffect);
 		}
@@ -142,11 +149,10 @@ namespace Entity {
 		//==================================================||Unity 
 		private void Awake() {
 			Movement = new KeyboardMovement(5);
-			Attack = new ProjectileAttack(this, 5, 15, 1, 0.3f, 30f);          
+			Attack = new ProjectileAttack(this, 70, 15, 1, 0.3f, 30f);          
 		}
        
 		private void Update() {
-			
 			var velo = Movement.GetDelta(this);
 			OnMove?.Invoke(this, velo);
 			transform.position += velo * Time.deltaTime;
@@ -163,6 +169,15 @@ namespace Entity {
 			}
 			CardInventory.Update(this);
 			Attack.Update();
+		}
+		
+		private void OnCollisionEnter2D(Collision2D other) {
+			var entity = other.gameObject.GetComponent<IEntity>();
+			if (entity == null) return;
+			
+			ReceiveDamage(entity.Attack.Power);
+			//var delta = (transform.position - other.gameObject.transform.position).normalized;
+			//transform.position += delta * KnockBack;
 		}
 
 		[TestMethod] private void SetIv(bool pV) => IsInvincible = pV;

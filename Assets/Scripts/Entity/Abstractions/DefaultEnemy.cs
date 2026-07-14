@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data.Entity;
 using Entity.AttackModule;
 using Movement;
 using StatusEffect;
@@ -21,9 +22,10 @@ namespace Entity {
 		//==================================================Fields	
 		
 		[Header("Stat")]
-		[SerializeField] private float _speed;
-		[SerializeField] private float _traceRange;
-		[SerializeField] private int _maxHp;
+		[SerializeField] protected float _speed;
+		[SerializeField] protected float _traceRange;
+		[SerializeField] protected int _maxHp;
+		[SerializeField] protected int _expAmount;
 		private float _damageDownMultiplier = 1;
 		private bool _isInvincible = false;
 		private List<StatusEffectBase> _statusEffects = new();
@@ -32,7 +34,7 @@ namespace Entity {
 		
 		public Vector3 Pos => transform.position;
 		public IMovement Movement { get; protected set; }
-		public IAttack Attack { get; protected set; }
+		public abstract IAttack Attack { get; protected set; }
 		public IEnumerable<StatusEffectBase> StatusEffects => _statusEffects;
 		public bool IsInvincible {
 			get => _isInvincible;
@@ -110,10 +112,18 @@ namespace Entity {
 			_statusEffects.Add(pEffect);
 		}
 
+		protected virtual void Death(IEntity pTarget) {
+			for (int i = 0; i < _expAmount; i++) {
+				var ball = ExperienceBallGenerator.Instance.Pool.Get();
+				ball.transform.position = transform.position;
+			}
+			Destroy(gameObject);
+		}
 		//==================================================Unity	
 		protected virtual void Awake() {
 			Movement = new TracePlayer(_speed, _traceRange);
 			Hp = MaxHp;
+			OnDeath += Death;
 		}
 
 		protected virtual void Update() {

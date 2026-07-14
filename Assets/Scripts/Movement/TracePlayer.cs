@@ -19,7 +19,7 @@ namespace Movement {
 			var delta = Player.Instance.Pos - pTarget.Pos;
 			var mag = delta.magnitude;
 			if (mag < _traceRange) return Vector3.zero;
-			return delta.normalized * Mathf.Min(Speed, mag);
+			return delta.normalized * Speed;
 		}
 	}
 }

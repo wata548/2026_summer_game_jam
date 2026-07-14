@@ -9,6 +9,7 @@ namespace StatusEffect
 {
     internal class Fruit : StatusEffectBase
     {
+        public override int Id => 3003;
         public Fruit(float pDuration) : base(pDuration) {}
         public override void StartEffect(IEntity pTarget)
         {

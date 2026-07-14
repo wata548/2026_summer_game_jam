@@ -7,6 +7,8 @@ namespace StatusEffect
 {
     internal class Burn : StatusEffectBase
     {
+        
+        public override int Id => 3002;
         public Burn(float pDuration) : base(pDuration) {}
 
         public override void StartEffect(IEntity pTarget)

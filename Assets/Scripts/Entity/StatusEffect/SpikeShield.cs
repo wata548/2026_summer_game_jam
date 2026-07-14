@@ -7,6 +7,7 @@ using UnityEngine;
 namespace StatusEffect
 {
 	internal class SpikeShield : StatusEffectBase {
+		public override int Id => 3007;
 		public SpikeShield(int pAmount) : base(int.MaxValue) => 
 			_amount = pAmount;
 		
