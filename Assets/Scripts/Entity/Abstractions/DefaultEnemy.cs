@@ -107,7 +107,7 @@ namespace Entity {
 			OnAddGuard?.Invoke(this, pAmount);
 		}
 		
-		public void AddStatusEffectBase(StatusEffectBase pEffect) {
+		public void AddStatusEffect(StatusEffectBase pEffect) {
 			_statusEffects = _statusEffects.Where(effect => effect.Alive).ToList();
 			_statusEffects.Add(pEffect);
 		}

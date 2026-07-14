@@ -1,31 +1,13 @@
 fileFormatVersion: 2
-guid: 3b13733913cdbde4aba4b395afae1438
+guid: 6a6c64a74cdc62645bff13953db49455
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 241286825602447716
-    second: Lion(1)_0
+      213: -5854287523334780016
+    second: crawfish_0
   - first:
-      213: 1164463662467153922
-    second: Lion(1)_1
-  - first:
-      213: 5424722913303176866
-    second: Lion(1)_2
-  - first:
-      213: 1703822566958165287
-    second: Lion(1)_3
-  - first:
-      213: -7033998091930005751
-    second: Lion(1)_4
-  - first:
-      213: -6122996308818805129
-    second: Lion(1)_5
-  - first:
-      213: -8036537926819222145
-    second: Lion(1)_6
-  - first:
-      213: 3438440881271183887
-    second: Lion(1)_7
+      213: 4968613629280060462
+    second: crawfish_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -147,117 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Lion_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e59490698a931234daa216b85e522290
-      internalID: 1900118938
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lion_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 51aa3dd82ce136b4daaa2f2d9af2eab9
-      internalID: 1190877691
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lion_2
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 90418a889c1f21645829725f56d3ac3f
-      internalID: -2077062640
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lion_3
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 09f820e7c98636d439ee24ed2b12bea2
-      internalID: 429174961
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lion_4
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 123549694e5ff9c4fa7b3d7ba03f6d9f
-      internalID: 901345880
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lion_5
+      name: crawfish_0
       rect:
         serializedVersion: 2
         x: 0
@@ -272,14 +144,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 727b4e13d50e22d409a0b28f4e45af43
-      internalID: -2080447870
+      spriteID: 03df5c165c1ea30449aaecbb6fe35f3f
+      internalID: -439742569
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lion_6
+      name: crawfish_1
       rect:
         serializedVersion: 2
         x: 64
@@ -294,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 84e6e906408a964489f0eee171bfc159
-      internalID: 383850691
+      spriteID: 4ec3df1bd87fd8046b983fba70a35e9e
+      internalID: -1480338096
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lion_7
+      name: crawfish_2
       rect:
         serializedVersion: 2
         x: 128
@@ -316,8 +188,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fbb52bca77f9c3c41a75ec07b4ad95b1
-      internalID: 319279642
+      spriteID: 1e03bc822cdb5e641812aa47f0503b2f
+      internalID: -900337931
       vertices: []
       indices: 
       edges: []
@@ -342,14 +214,9 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Lion_0: 1900118938
-      Lion_1: 1190877691
-      Lion_2: -2077062640
-      Lion_3: 429174961
-      Lion_4: 901345880
-      Lion_5: -2080447870
-      Lion_6: 383850691
-      Lion_7: 319279642
+      crawfish_0: -439742569
+      crawfish_1: -1480338096
+      crawfish_2: -900337931
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

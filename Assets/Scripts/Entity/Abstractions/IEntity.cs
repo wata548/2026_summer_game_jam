@@ -29,6 +29,6 @@ namespace Entity {
         void Heal(int pAmount);
         void AddGuard(int pAmount);
 
-        void AddStatusEffectBase(StatusEffectBase pEffect);
+        void AddStatusEffect(StatusEffectBase pEffect);
     }
 }

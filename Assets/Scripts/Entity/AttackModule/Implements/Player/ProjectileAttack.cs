@@ -73,6 +73,8 @@ namespace Entity.AttackModule.Implements.Player {
 		}
 
 		public void Update() {
+			if (Time.timeScale == 0) return;
+			
 			if (_remainTime < CoolTime) {
 				if (!_coolDownAnimation && _remainTime >= CoolTime - _coolDownAnimationTerm) {
 					CoolDownAnimation?.Invoke();

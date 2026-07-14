@@ -13,7 +13,7 @@ namespace Assets.Scripts.Item.Implements
 
         public override void Use()
         {
-            Player.Instance.AddStatusEffectBase(new SpikeShield(50));
+            Player.Instance.AddStatusEffect(new SpikeShield(50));
         }
     }
 }

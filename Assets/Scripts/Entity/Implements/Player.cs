@@ -135,8 +135,8 @@ namespace Entity {
 			CardInventory.OnAddGuard(this, pAmount);
 		}
 
-		public void AddStatusEffectBase(StatusEffectBase pEffect) {
-			var effect = _statusEffects.Find(effect => effect.Id == pEffect.Id && pEffect.Alive);
+		public void AddStatusEffect(StatusEffectBase pEffect) {
+			var effect = _statusEffects.Find(effect => effect.Id == pEffect.Id && effect.Alive);
 			if (effect != null) {
 				effect.SetDuration(pEffect.Duration);
 				return;
@@ -171,13 +171,14 @@ namespace Entity {
 			Attack.Update();
 		}
 		
+		//TODO: convert to OnCollisionStay base and calc time
 		private void OnCollisionEnter2D(Collision2D other) {
 			var entity = other.gameObject.GetComponent<IEntity>();
 			if (entity == null) return;
 			
 			ReceiveDamage(entity.Attack.Power);
-			//var delta = (transform.position - other.gameObject.transform.position).normalized;
-			//transform.position += delta * KnockBack;
+			if (entity.Attack is ICloseAttack attack)
+				attack.OnAttacked(this);
 		}
 
 		[TestMethod] private void SetIv(bool pV) => IsInvincible = pV;

@@ -5,7 +5,7 @@ namespace StatusEffect {
 	public class Bleeding: StatusEffectBase {
 		public override int Id => 3001;
 		public Bleeding(float pDuration) : base(pDuration) { }
-		private const float DamageTerm = 3;
+		private const float DamageTerm = 1;
 		private float _timer = DamageTerm;
 
 

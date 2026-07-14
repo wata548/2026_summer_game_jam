@@ -5,6 +5,8 @@ using Entity;
 
 namespace Card.Inventory {
 	public class CardInventory {
+		public event Action<CardInventory> OnCardUpdated;
+		
 		//==================================================||Properties 
 		public int Cnt => _cards.Count;
 		public IEnumerable<CardBase> Cards => _cards.Select(card => card);
@@ -16,7 +18,7 @@ namespace Card.Inventory {
 		public void Get(IEntity pTarget, int pId) {
 			var temp = _cards.FirstOrDefault(card => card.Id == pId);
 			if (temp != null) {
-				temp.LevelUp(pTarget);
+				OnCardUpdated?.Invoke(this);
 				return;
 			}
                 
@@ -24,6 +26,7 @@ namespace Card.Inventory {
 			var instance = (Activator.CreateInstance(targetType) as CardBase)!;
 			instance.ApplyPassive(pTarget, true);
 			_cards.Add(instance);
+			OnCardUpdated?.Invoke(this);
 		}
 
 		public bool Remove(IEntity pTarget, int pId) {
@@ -33,6 +36,7 @@ namespace Card.Inventory {
 			temp.ApplyPassive(pTarget, false);
 			temp.OnRemove(pTarget);
 			_cards.Remove(temp);
+			OnCardUpdated?.Invoke(this);
 			return true;
 		}
 
@@ -41,7 +45,6 @@ namespace Card.Inventory {
 				if(!card.IsActive) continue;
 				card.Update(pTarget);
 			}
-				
 		}
 
 		//==================================================||CallBacks 

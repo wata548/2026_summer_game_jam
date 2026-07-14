@@ -13,7 +13,7 @@ namespace Item
         public override void Use()
         {
             Player.Instance.Heal(30);
-            Player.Instance.AddStatusEffectBase(new DamageDown(0.2f, 10));
+            Player.Instance.AddStatusEffect(new DamageDown(0.2f, 10));
         }
     }
 }
