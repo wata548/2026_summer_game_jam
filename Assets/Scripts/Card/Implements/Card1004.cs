@@ -12,7 +12,7 @@ namespace Card
 
         public override float[] Duration => _duration;
         private readonly float[] _coolTime = { 20, 20, 20 };
-        private readonly float[] _duration = { 3, 3, 3 };
+        private readonly float[] _duration = { 0, 0, 0 };
 
         public override int Id => 1004;
 
@@ -46,6 +46,10 @@ namespace Card
                     break;
             }
 
+        }
+        public override void OnRemove(IEntity pTarget)
+        {
+            ExitSkill(pTarget);
         }
     }
 }
