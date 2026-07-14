@@ -39,5 +39,9 @@ namespace Card
             }
 
         }
+        public override void OnRemove(IEntity pTarget)
+        {
+            ExitSkill(pTarget);
+        }
     }
 }

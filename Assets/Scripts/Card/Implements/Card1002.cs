@@ -26,9 +26,11 @@ namespace Card {
                     break;
                 case 1:
                     pTarget.DamageDownMultiplier += 0.1f * symbol;
+                    IsHealing=true;
                     break;
                 case 2:
-                    pTarget.DamageDownMultiplier += 0.1f * symbol;
+                    pTarget.DamageDownMultiplier += 0.2f * symbol;
+                    IsHealing = true;
                     break;
             }
         }
@@ -39,7 +41,6 @@ namespace Card {
                 timer += Time.deltaTime;
                 if(timer % 5 == 0) OnHeal(pTarget, heals[Level]);
             }
-            
         }
     }
 }

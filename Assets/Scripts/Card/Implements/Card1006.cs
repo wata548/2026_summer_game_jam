@@ -9,9 +9,9 @@ namespace Card
 {
     class Card1006 : CardBase
     {
-        public override int Id => throw new NotImplementedException();
+        public override int Id => 1006;
 
-        public override bool IsActive { get => throw new NotImplementedException(); protected set => throw new NotImplementedException(); }
+        public override bool IsActive { get; protected set; } = true;
         public override void ApplyPassive(IEntity pTarget, bool pApply)
         {
             var symbol = pApply ? 1 : -1;
