@@ -7,11 +7,10 @@ namespace Item {
 
 		private const int StartInventorySlot = 3;
 		public event Action<ItemInventory> OnChangeInventorySize;
-		public event Action<ItemInventory> OnChangedItem;
 		public event Action<ItemInventory, int> OnRemove;
 		public event Action<ItemInventory, int> OnUse;
 		public event Action<ItemInventory, int> OnGet;
-		public event Action<ItemInventory, int> OnCandidateAdd;
+		public event Action<ItemInventory, int> OnCandidateAdded;
 		
 		//==================================================Properties	
 		public int InventoryAmount { get; private set; }
@@ -19,7 +18,7 @@ namespace Item {
 
 		//==================================================Fields	
 		private List<ItemBase> _items = new();
-		private Queue<int> _candidate;
+		private Queue<int> _candidate = new();
 
 		//==================================================Constructors	
 		public ItemInventory() {
@@ -27,48 +26,49 @@ namespace Item {
 		}
 		
 		//==================================================Merthods	
+		
 		public void AddInventorySize(int pAmount) {
 			if (pAmount < 0) throw new ArgumentOutOfRangeException($"pAmount must bigger then 0({pAmount})");
 			InventoryAmount += pAmount;
-			for (int i = 0; i < InventoryAmount; i++) {
+			for (int i = 0; i < pAmount; i++) {
 				_items.Add(null);
 			}
 			OnChangeInventorySize?.Invoke(this);
 		}
 
 		public void Use(int pIdx) {
+			if (_items.Count <= pIdx) return;
 			_items[pIdx]?.Use();
 			_items[pIdx] = null;
-			OnChangedItem?.Invoke(this);
 			OnUse?.Invoke(this, pIdx);
 		}
 
-		public void GetItem(int pId) => GetItem(pId, -1);
+		public int GetItemId(int pIdx) => _items[pIdx]?.Id ?? -1;
+		public void AddItem(int pId) => AddItem(pId, -1);
 		
 		public void SelectItem(int pIdx) {
 			var id = _candidate.Dequeue();
 			if (pIdx == -1) return;
-			GetItem(id, pIdx);
+			AddItem(id, pIdx);
 			OnRemove?.Invoke(this, pIdx);
 		}
 		
 		//pIdx != -1 -> force work
-		private void GetItem(int pId, int pIdx) {
+		private void AddItem(int pId, int pIdx) {
 
 			if (pIdx == -1) {
 				pIdx = _items.FindIndex(item => item == null);
 				if (pIdx == -1) {
 					_candidate.Enqueue(pId);
-					OnCandidateAdd?.Invoke(this, pId);
+					OnCandidateAdded?.Invoke(this, pId);
 					return;
 				}
 			}
 				
 			var targetItem = Type.GetType($"Item.Item{pId}")!;
 			var item = (Activator.CreateInstance(targetItem) as ItemBase)!;
-			OnChangedItem?.Invoke(this);
-			OnGet?.Invoke(this, pIdx);
 			_items[pIdx] = item;
+			OnGet?.Invoke(this, pIdx);
 		}
 	}
 }
