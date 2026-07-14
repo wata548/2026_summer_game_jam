@@ -106,7 +106,6 @@ namespace Entity {
 		}
 		
 		public void AddStatusEffectBase(StatusEffectBase pEffect) {
-			pEffect.StartEffect(this);
 			_statusEffects = _statusEffects.Where(effect => effect.Alive).ToList();
 			_statusEffects.Add(pEffect);
 		}
