@@ -81,7 +81,7 @@ namespace Entity {
         
 		//==================================================||Methods 
 		[TestMethod]
-		public void ReceiveDamage(int pAmount) {
+		public void ReceiveDamage(int pAmount, bool pIgnoreDamageDownMultiplier = false) {
 
 			if (IsInvincible) {
 				//OnReceiveDamage?.Invoke(this, 0, true);
@@ -89,7 +89,9 @@ namespace Entity {
 				return;
 			}
 
-			pAmount = Mathf.CeilToInt(pAmount * _damageDownMultiplier);
+			if(!pIgnoreDamageDownMultiplier)
+				pAmount = Mathf.CeilToInt(pAmount * _damageDownMultiplier);
+			
 			var guardApplied = false;
 			var damage = pAmount;
 			if (Guard > 0) {
@@ -107,7 +109,7 @@ namespace Entity {
 			Hp = Mathf.Max(Hp - pAmount, 0);
             
 			OnHpChange?.Invoke(this);
-			OnReceiveDamage?.Invoke(this, damage, guardApplied);
+			OnReceiveDamage?.Invoke(this, pAmount, guardApplied);
 			CardInventory.OnReceiveDamage(this, pAmount);
 			if (Hp <= 0) {
 				CardInventory.OnDeath(this);

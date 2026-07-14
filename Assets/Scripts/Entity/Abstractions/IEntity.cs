@@ -25,7 +25,7 @@ namespace Entity {
         int Guard { get; }
         float DamageDownMultiplier { get; set; }
         
-        void ReceiveDamage(int pAmount);
+        void ReceiveDamage(int pAmount, bool pIgnoreDamageDownMultiplier = false);
         void Heal(int pAmount);
         void AddGuard(int pAmount);
 

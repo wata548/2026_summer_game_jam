@@ -7,8 +7,7 @@ namespace StatusEffect
 {
     internal class Burn : StatusEffectBase
     {
-        public Burn(float pDuration, IEntity pTarget) : base(pDuration) {}
-        private float _timer = 10;
+        public Burn(float pDuration) : base(pDuration) {}
 
         public override void StartEffect(IEntity pTarget)
         {

@@ -61,14 +61,16 @@ namespace Entity {
 		}
 		
 		//==================================================Methods	
-		public void ReceiveDamage(int pAmount) {
+		public void ReceiveDamage(int pAmount, bool pIgnoreDamageDownMultiplier = false) {
 
 			if (IsInvincible) {
 				//OnReceiveDamage?.Invoke(this, 0, true);
 				return;
 			}
-
-			pAmount = Mathf.CeilToInt(pAmount * _damageDownMultiplier);
+			
+			if(!pIgnoreDamageDownMultiplier)
+				pAmount = Mathf.CeilToInt(pAmount * _damageDownMultiplier);
+			
 			var guardApplied = false;
 			var damage = pAmount;
 			if (Guard > 0) {

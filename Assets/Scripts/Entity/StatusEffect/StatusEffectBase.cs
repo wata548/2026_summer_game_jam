@@ -17,6 +17,7 @@ namespace StatusEffect {
 		}
 		
 		//==================================================Methods	
+		protected void End() => _duration = 0;
 		public virtual void StartEffect(IEntity pTarget) { }
 		public virtual void ExitEffect(IEntity pTarget){}
 		protected virtual void UpdateEffect(IEntity pTarget) {}
