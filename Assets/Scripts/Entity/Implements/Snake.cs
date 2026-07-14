@@ -32,7 +32,6 @@ namespace Entity {
 		}
 
 		private void CoolDown() {
-			Debug.Log("SDf");
 			_animator.Play("Attack", 0);
 		} 
 
