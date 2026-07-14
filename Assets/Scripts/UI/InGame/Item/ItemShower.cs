@@ -8,17 +8,17 @@ namespace UI.InGame.Item {
 	public class ItemShower: DataGenerator {
 		[SerializeField] private Image _image; 
 		[SerializeField] private TMP_Text _keyShower;
-		private int _id = 0;
+		private int _id = -1;
 		public void SetItem(int pId, string pLabel) {
 			_id = pId;
 			_image.sprite = DataImage.Get(pId);
 			_keyShower.text = pLabel;
 		}
 
-		public override string Name => _id == 0 
+		public override string Name => _id == -1 
 			? "" 
 			: DataTables.Instance.ItemsDesc.Get(_id).Name;
-		public override string Context => _id == 0 
+		public override string Context => _id == -1 
 			? "" 
 			: DataTables.Instance.ItemsDesc.Get(_id).Desc;
 		

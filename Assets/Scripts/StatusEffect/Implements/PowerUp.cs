@@ -5,6 +5,7 @@ namespace StatusEffect {
 		public override int Id => 3006;
 		private float _percent;
 
+		public override string Context => string.Format(Desc.Desc, Duration.ToString("N1"), (int)(_percent * 100));
 		public PowerUp(float pPercent, float pDuration) : base(pDuration) {
 			_percent = pPercent;
 		}

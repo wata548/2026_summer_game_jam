@@ -12,7 +12,7 @@ namespace StatusEffect
         {
             _percent = pPercent;
         }
-
+        public override string Context => string.Format(Desc.Desc, Duration.ToString("N1"), (int)(_percent * 100));
         public override int Id => 3008;
 
         public override void StartEffect(IEntity pTarget)

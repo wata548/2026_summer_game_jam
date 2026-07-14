@@ -11,7 +11,7 @@ namespace UI.InGame.Item {
 		[SerializeField] private Transform _range;
 		private List<ItemShowerButton> _showers = new();
 		private bool _isActive = false;
-		private Queue<int> _candidate = new();
+		private readonly Queue<int> _candidate = new();
 
 		private void OnCandidateAdded(ItemInventory _, int pCandidate) => _candidate.Enqueue(pCandidate);
 		

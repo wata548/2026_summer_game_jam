@@ -1,11 +1,7 @@
 ﻿using Entity;
-using Item;
 using StatusEffect;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Assets.Scripts.Item.Implements
+namespace Item
 {
     internal class Item2002 : ItemBase
     {

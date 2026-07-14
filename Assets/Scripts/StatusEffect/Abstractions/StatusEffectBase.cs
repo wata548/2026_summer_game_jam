@@ -1,3 +1,4 @@
+using Data;
 using Entity;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace StatusEffect {
 		//==================================================Properties	
 		public bool Alive => Duration >= 0; 
 		public abstract int Id { get; }
+		public virtual string Context => string.Format(Desc.Desc, Duration.ToString("N1"));
+		public readonly StatusEffectDesc Desc;
 
 		//==================================================Fields	
 		public float Duration { get; private set; }
@@ -15,6 +18,7 @@ namespace StatusEffect {
 		//==================================================Constructors	
 		protected StatusEffectBase(float pDuration) {
 			Duration = pDuration;
+			Desc = DataTables.Instance.EffectDesc.Get(Id);
 		}
 		
 		//==================================================Methods	

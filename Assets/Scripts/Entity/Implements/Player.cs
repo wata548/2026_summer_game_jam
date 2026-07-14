@@ -30,6 +30,7 @@ namespace Entity {
 		public event Action<IEntity, int> OnAddGuard;
 		public event Action<IEntity, bool> ChangeInvincibleValue;
 		public event Action<IEntity, Vector3> OnMove;
+		public event Action<IEntity, StatusEffectBase> OnAddStatusEffect;
         
 		//==================================================||Properties 
         
@@ -144,6 +145,7 @@ namespace Entity {
 			
 			_statusEffects = _statusEffects.Where(effect => effect.Alive).ToList();
 			_statusEffects.Add(pEffect);
+			OnAddStatusEffect?.Invoke(this, pEffect);
 		}
 
 		//==================================================||Unity 
