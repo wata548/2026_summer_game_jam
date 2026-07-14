@@ -76,10 +76,11 @@ namespace UI.InGame.CardChoicing
 
         public void OnClickCardChoice()
         {
+            Debug.Log(ClickCard.Number);
             Player.Instance.CardInventory.Get(Player.Instance, ClickCard.Number);
 
             Time.timeScale = 1f;
-            gameObject.transform.parent.gameObject.SetActive(false);
+            gameObject.transform.parent.transform.parent.gameObject.SetActive(false);
         }
 
     }
