@@ -8,6 +8,7 @@ namespace Movement {
         
        //==================================================||Properties 
         public bool MoveFlip { get; set; }
+        public bool MoveLock { get; set; }
         public float Speed { get; }
         public float SpeedMultiplier {
             get => _speedMultiplier;
@@ -28,6 +29,7 @@ namespace Movement {
 
         //==================================================||Methods 
         public Vector3 GetDelta(IEntity pTarget) {
+            if (MoveLock) return Vector3.zero;
             var result = _keyDirectionMatch
                 .Where(kvp => Input.GetKey(kvp.Key))
                 .Aggregate(Vector3.zero, (current, kvp) => current + kvp.Value);

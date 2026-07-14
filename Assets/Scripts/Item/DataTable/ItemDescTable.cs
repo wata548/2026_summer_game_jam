@@ -4,7 +4,7 @@ using System.Linq;
 using CSVData.Extensions;
 using Extension.DataTable;
 
-namespace Data.Item {
+namespace Item.Data {
 	public class ItemDescTable: IDataTable<ItemDesc> {
 		private readonly IReadOnlyDictionary<int, ItemDesc> _table;
         

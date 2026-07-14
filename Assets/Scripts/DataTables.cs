@@ -1,7 +1,8 @@
-using Card.DataTable;
-using Data.Item;
+using Card.Data;
+using Item.Data;
 using Extension;
 using Extension.DataTable;
+using UI.InGame;
 
 namespace Data {
     public class DataTables: MonoSingleton<DataTables> {

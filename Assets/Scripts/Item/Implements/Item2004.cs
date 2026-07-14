@@ -1,7 +1,7 @@
 using Entity;
 
-namespace Data.Item.Implements {
-	public class HolyWater: ItemBase {
+namespace Item {
+	public class Item2004: ItemBase {
 		public override int Id => 2004;
 
 		public override void Use() {

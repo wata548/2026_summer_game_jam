@@ -4,7 +4,7 @@ using System.Linq;
 using CSVData.Extensions;
 using Extension.DataTable;
 
-namespace Card.DataTable {
+namespace Card.Data {
     public class CardDescTable: IQueryAbleDataTable<CardDesc> {
         private readonly IReadOnlyDictionary<int, CardDesc> _table;
         
