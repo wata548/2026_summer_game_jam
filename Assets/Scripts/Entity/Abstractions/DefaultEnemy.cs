@@ -127,6 +127,5 @@ namespace Entity {
 			
 			Attack.Update();
 		}
-		
 	}
 }

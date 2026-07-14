@@ -7,7 +7,7 @@ namespace Card.Inventory {
 	public class CardInventory {
 		//==================================================||Properties 
 		public int Cnt => _cards.Count;
-		public IEnumerable<int> Cards => _cards.Select(card => card.Id);
+		public IEnumerable<CardBase> Cards => _cards.Select(card => card);
         
 		//==================================================||Fields 
 		private readonly List<CardBase> _cards = new();
