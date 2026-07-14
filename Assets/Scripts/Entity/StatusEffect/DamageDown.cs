@@ -12,6 +12,9 @@ namespace StatusEffect
         {
             _percent = pPercent;
         }
+
+        public override int Id => 3008;
+
         public override void StartEffect(IEntity pTarget)
         {
             pTarget.DamageDownMultiplier += _percent;
