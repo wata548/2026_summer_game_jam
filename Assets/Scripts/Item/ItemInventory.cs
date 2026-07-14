@@ -14,7 +14,7 @@ namespace Item {
 		
 		//==================================================Properties	
 		public int InventoryAmount { get; private set; }
-		public IEnumerable<ItemDesc> Items => _items.Select(item => item.Info);
+		public IEnumerable<ItemBase> Items => _items.Select(item => item);
 
 		//==================================================Fields	
 		private List<ItemBase> _items = new();
