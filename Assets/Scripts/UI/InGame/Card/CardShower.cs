@@ -11,6 +11,7 @@ namespace UI.InGame.Card
     public class CardShower : MonoBehaviour
     {
         [SerializeField] private Image _image;
+        [SerializeField] private Image _cooldownimage;
         [SerializeField] private TMP_Text _coolTimeText;
         [SerializeField] private GameObject _coolTimeRoot;
         [SerializeField] private Image coolTimeFill;
@@ -28,6 +29,7 @@ namespace UI.InGame.Card
         {
             _card = card;
             _image.sprite = DataImage.Get(card.Id);
+            _cooldownimage.sprite = DataImage.Get(card.Id);
             SetCardLevel(card.Level);
         }
 
@@ -68,6 +70,7 @@ namespace UI.InGame.Card
 
             float max = card.CoolTime[card.Level];
             float remain = max - card.CurTime;
+            coolTimeFill.fillAmount = Mathf.Clamp01(remain / max);
 
             coolTimeFill.fillAmount = remain / max;
             _coolTimeText.text = Mathf.CeilToInt(remain).ToString();
