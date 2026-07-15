@@ -20,8 +20,8 @@ namespace Card.Inventory {
 			if (temp == null) {
 				var targetType = Type.GetType($"Card.Card{pId}")!;
 				temp = (Activator.CreateInstance(targetType) as CardBase)!;
-				temp.ApplyPassive(pTarget, true);
 				_cards.Add(temp);
+				temp.ApplyPassive(pTarget, true);
 				OnCardUpdated?.Invoke(this);
 			}
 
@@ -41,8 +41,8 @@ namespace Card.Inventory {
                 
 			var targetType = Type.GetType($"Card.Card{pId}")!;
 			var instance = (Activator.CreateInstance(targetType) as CardBase)!;
-			instance.ApplyPassive(pTarget, true);
 			_cards.Add(instance);
+			instance.ApplyPassive(pTarget, true);
 			OnCardUpdated?.Invoke(this);
 		}
 

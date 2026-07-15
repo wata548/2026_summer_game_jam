@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Card.Inventory;
 using Data.Level;
+using Data.Skill;
 using Entity.AttackModule;
 using Entity.AttackModule.Implements.Player;
 using Extension;
@@ -33,7 +34,7 @@ namespace Entity {
 		public event Action<IEntity, StatusEffectBase> OnAddStatusEffect;
         
 		//==================================================||Properties 
-        
+		[field: SerializeField] public SkillCenter Skill { get; private set; }
 		public readonly CardInventory CardInventory = new();
 		public readonly ItemInventory ItemInventory = new();
 		public Level Level { get; private set; } = new();

@@ -1,25 +1,21 @@
-using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
+using Data.Skill;
+using Extension.Test;
 
 public class KnifeRotate : MonoBehaviour
 {
 
     [Header("Knife")]
-    [SerializeField] private GameObject knifePrefab;
+    [SerializeField] private Knife knifePrefab;
 
     [Header("Orbit")]
-    [SerializeField] private float radius = 2.0f;
+    [SerializeField] private float radius = 1.0f;
     [SerializeField] private float rotationSpeed = 180f;
 
-    private List<Transform> knifes = new List<Transform>();
+    private List<Knife> knifes = new();
 
     private float currentAngle;
-
-    private void Start()
-    {
-        AddKnife(3);
-    }
 
     private void Update()
     {
@@ -29,11 +25,6 @@ public class KnifeRotate : MonoBehaviour
         currentAngle += rotationSpeed * Time.deltaTime;
 
         UpdateKnifePosition();
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            AddKnife(1);
-        }
     }
 
     private void UpdateKnifePosition()
@@ -50,19 +41,24 @@ public class KnifeRotate : MonoBehaviour
                 0f
             ) * radius;
 
-            knifes[i].localPosition = offset;
+            knifes[i].transform.localPosition = offset;
 
             float rotation = currentAngle + angleStep * i;
-            knifes[i].rotation = Quaternion.Euler(0f, 0f, rotation + 90f);
+            knifes[i].transform.rotation = Quaternion.Euler(0f, 0f, rotation + 90f);
         }
     }
-    public void AddKnife(int count)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            GameObject blade = Instantiate(knifePrefab, transform);
-            knifes.Add(blade.transform);
+    
+    [TestMethod]
+    public void Set(int pCount, int pDamage) {
+        while (pCount != knifes.Count) {
+            if (pCount < knifes.Count)
+                knifes.RemoveAt(0);
+            else
+                knifes.Add(Instantiate(knifePrefab, transform));
         }
-        UpdateKnifePosition();
+
+        foreach (var knife in knifes) {
+            knife.Set(pDamage);
+        }
     }
 }

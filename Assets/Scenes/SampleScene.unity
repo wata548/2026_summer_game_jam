@@ -2864,7 +2864,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &883061373
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3028,8 +3028,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1221735279}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.03, y: 0.7}
-  m_AnchorMax: {x: 0.97, y: 0.92}
+  m_AnchorMin: {x: 0.07, y: 0.7}
+  m_AnchorMax: {x: 0.93, y: 0.86}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3062,8 +3062,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4110,7 +4110,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 450, y: 150}
+  m_SizeDelta: {x: 450, y: 225}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1221735280
 MonoBehaviour:
@@ -4132,7 +4132,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 94e41011a260dae4b915021726f836ec, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4309,6 +4309,8 @@ GameObject:
   - component: {fileID: 1317489277}
   - component: {fileID: 1317489278}
   - component: {fileID: 1317489279}
+  - component: {fileID: 1317489280}
+  - component: {fileID: 1317489281}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -4328,6 +4330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807fc0d1e1a6428db32fe51cba77bd14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Entity.Player
+  <Skill>k__BackingField: {fileID: 1317489281}
   _playerAttackScale: {x: 0.6, y: 0.6, z: 0.6}
 --- !u!212 &1317489274
 SpriteRenderer:
@@ -4355,7 +4358,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 8ae4df126b327a142b434e4333097940, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4405,6 +4408,7 @@ Transform:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 1293069290}
+  - {fileID: 1580403714}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1317489276
@@ -4506,6 +4510,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1317489280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317489272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcba55cb58124b7d97c613b567b165a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Data.UI.OnDamageReceive
+--- !u!114 &1317489281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317489272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 522c2a2961be4172ab1a655090fe8a05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Data.Skill.SkillCenter
+  <Knife>k__BackingField: {fileID: 0}
 --- !u!1 &1324651864
 GameObject:
   m_ObjectHideFlags: 0
@@ -4538,8 +4567,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1221735279}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.03, y: 0.05}
-  m_AnchorMax: {x: 0.97, y: 0.65}
+  m_AnchorMin: {x: 0.07, y: 0.13}
+  m_AnchorMax: {x: 0.93, y: 0.65}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
@@ -4572,8 +4601,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5206,6 +5235,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1555171475}
   m_CullTransparentMesh: 1
+--- !u!1 &1580403713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1580403714}
+  - component: {fileID: 1580403715}
+  m_Layer: 0
+  m_Name: Knife
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1580403714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580403713}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1317489275}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1580403715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580403713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de72865413fd9a845826c469db79c341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KnifeRotate
+  knifePrefab: {fileID: -3060465322506075120, guid: 752774324f2d6f44bb033e2116c79b66, type: 3}
+  radius: 2
+  rotationSpeed: 180
 --- !u!4 &1683177887
 Transform:
   m_ObjectHideFlags: 0

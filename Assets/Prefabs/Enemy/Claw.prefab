@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 2490309502002900106}
   - component: {fileID: 2840683947198950888}
   - component: {fileID: 1167179908465686685}
+  - component: {fileID: 2143819659072006062}
   m_Layer: 0
   m_Name: Claw
   m_TagString: Untagged
@@ -293,3 +294,15 @@ MonoBehaviour:
   _expAmount: 1
   <Guard>k__BackingField: 0
   _damage: 10
+--- !u!114 &2143819659072006062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6731866231092682359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcba55cb58124b7d97c613b567b165a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Data.UI.OnDamageReceive

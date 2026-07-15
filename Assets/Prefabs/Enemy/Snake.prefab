@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7469695038381858582}
   - component: {fileID: 8404804057342937453}
   - component: {fileID: 6788022211126433219}
+  - component: {fileID: 6793296757410010803}
   m_Layer: 0
   m_Name: Snake
   m_TagString: Untagged
@@ -207,6 +208,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6793296757410010803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138332771773230200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcba55cb58124b7d97c613b567b165a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Data.UI.OnDamageReceive
 --- !u!1 &8203045786457297721
 GameObject:
   m_ObjectHideFlags: 0

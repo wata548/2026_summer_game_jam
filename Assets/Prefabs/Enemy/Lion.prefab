@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1553560199289589281}
   - component: {fileID: 1068095101908257037}
   - component: {fileID: 6928123133511491371}
+  - component: {fileID: 4623368907388004317}
   m_Layer: 0
   m_Name: Lion
   m_TagString: Untagged
@@ -202,6 +203,18 @@ MonoBehaviour:
   <Guard>k__BackingField: 0
   _damage: 10
   _attackDistance: 1.5
+--- !u!114 &4623368907388004317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4286660923632001039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcba55cb58124b7d97c613b567b165a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Data.UI.OnDamageReceive
 --- !u!1 &5507078672591501334
 GameObject:
   m_ObjectHideFlags: 0

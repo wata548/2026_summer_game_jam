@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 1919972366174564050}
   - component: {fileID: 5635713246150650368}
   - component: {fileID: 4519133241415964295}
+  - component: {fileID: 2428090348873483011}
   m_Layer: 0
   m_Name: GoldSnake
   m_TagString: Untagged
@@ -299,3 +300,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2428090348873483011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9011380358318017639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcba55cb58124b7d97c613b567b165a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Data.UI.OnDamageReceive

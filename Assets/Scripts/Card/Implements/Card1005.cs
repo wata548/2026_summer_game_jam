@@ -16,11 +16,14 @@ namespace Card
             switch (Level)
             {
                 case 0:
-                    //칼날이돌아감(3개/15뎀)
+                    Player.Instance.Skill.Knife.Set(3, 10);
                     break;
                 case 1:
+                    Player.Instance.Skill.Knife.Set(4, 15);
+                    break;
                     break;
                 case 2:
+                    Player.Instance.Skill.Knife.Set(5, 15);
                     break;
             }
                 

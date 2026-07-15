@@ -62,7 +62,7 @@ Material:
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
     - _Thickness: 0.02
-    - _TimeScale: 183.67706
+    - _TimeScale: 28.503935
     - _UIMaskSoftnessX: 1
     - _UIMaskSoftnessY: 1
     m_Colors:
