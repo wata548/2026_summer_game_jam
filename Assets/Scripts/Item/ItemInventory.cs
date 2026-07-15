@@ -28,10 +28,12 @@ namespace Item {
 		//==================================================Merthods	
 		
 		public void AddInventorySize(int pAmount) {
-			if (pAmount < 0) throw new ArgumentOutOfRangeException($"pAmount must bigger then 0({pAmount})");
 			InventoryAmount += pAmount;
-			for (int i = 0; i < pAmount; i++) {
-				_items.Add(null);
+			while (_items.Count != InventoryAmount) {
+				if(_items.Count > InventoryAmount)
+					_items.RemoveAt(_items.Count - 1);
+				else
+					_items.Add(null);
 			}
 			OnChangeInventorySize?.Invoke(this);
 		}

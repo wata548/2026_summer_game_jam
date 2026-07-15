@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace UI.InGame.Item {
 	public class ItemShower: DataGenerator {
-		[SerializeField] private Image _image; 
+		[SerializeField] protected Image _image; 
 		[SerializeField] private TMP_Text _keyShower;
 		private int _id = -1;
 		public void SetItem(int pId, string pLabel) {

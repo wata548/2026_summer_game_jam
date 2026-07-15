@@ -44,6 +44,7 @@ namespace Card
         }
         public override void Update(IEntity pTarget)
         {
+            base.Update(pTarget);
             if (IsReinforcing==true)
             {
                 timer -= Time.deltaTime;

@@ -1,12 +1,12 @@
 using Card;
-using Entity;
 using TMPro;
+using UI.InGame.Info;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI.InGame.Card
 {
-    public class CardShower : MonoBehaviour
+    public class CardShower : DataGenerator
     {
         [SerializeField] private Image _image;
         [SerializeField] private Image _cooldownimage;
@@ -45,7 +45,25 @@ namespace UI.InGame.Card
             coolTimeFill.fillAmount = remain / max;
             _coolTimeText.text = Mathf.CeilToInt(remain).ToString();
         }
-        
+
+        public override string Name {
+            get {
+                if (_card == null) return "";
+                return $"{_card.Desc.Name} + {_card.Level + 1}";
+            }
+        }
+
+        public override string Context {
+            get {
+                if (_card == null) return "";
+                return _card.Level switch {
+                    0 => _card.Desc.Desc,
+                    1 => _card.Desc.Level1Desc,
+                    2 => _card.Desc.Level2Desc
+                };
+            }
+        }
+
         private void Update()
         {
             CheckCardLevel(_card.Level);

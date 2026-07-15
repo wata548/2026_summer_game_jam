@@ -1,41 +1,37 @@
 using Card;
 using Card.Data;
 using System.Linq;
+using Data;
+using Data.Level;
 using UnityEngine;
 using Entity;
+using Extension;
 using UI.InGame.CardChoicing;
 
 namespace UI.InGame.LevelUpWindow
 {
-    public class LevelUpWindow : MonoBehaviour
-    {
+    public class LevelUpWindow : MonoSingleton<LevelUpWindow> {
+        protected override bool IsNarrowSingleton => true;
         [SerializeField] private GameObject LvPanel;
         [SerializeField] private CardChoiceUI[] cardChoices;
         [SerializeField] private RarityTable rarityTable;
 
-        private CardDescTable cardDescTable;
         private CardDesc card;
-        private void Awake()
-        {
-            cardDescTable = new CardDescTable();
+        private void Start() {
+            Player.Instance.Level.OnLevelUp += Show;
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.F1))
+        public void Show(Level pLevel) {
+            Time.timeScale = 0f;
+            for (int i = 0; i < 3; i++)
             {
-                Time.timeScale = 0f;
-                for (int i = 0; i < 3; i++)
-                {
-                    CreateCard(i);
-                    cardChoices[i].SetCardChoice(card);
-                }
-                LvPanel.SetActive(true);
-                
+                CreateCard(i);
+                cardChoices[i].SetCardChoice(card);
             }
+            LvPanel.SetActive(true);
         }
 
-        public void CreateCard(int order)
+        private void CreateCard(int order)
         {
             Rarity rarity = rarityTable.GetRandomRarity();
 
@@ -47,11 +43,11 @@ namespace UI.InGame.LevelUpWindow
             }
         }
 
-        public CardDesc GetRarityRandomCard(Rarity rarity)
+        private CardDesc GetRarityRandomCard(Rarity rarity)
         {
             var ownedCards = Player.Instance.CardInventory.Cards;
 
-            var cards = cardDescTable
+            var cards = DataTables.Instance.CardDesc
                 .Query(card => card.Rarity == rarity)
                 .Where(desc =>
                 {

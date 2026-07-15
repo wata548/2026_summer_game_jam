@@ -56,7 +56,7 @@ namespace Entity {
 			get => _maxHp;
 			set {
 				if (value > 0) {
-					_maxHp += value;
+					_maxHp = value;
 					Heal(value / 2);
 					return;
 				}
@@ -82,6 +82,7 @@ namespace Entity {
 		private bool _isInvincible = false;
 		private float _damageDownMultiplier = 1;
 		private List<StatusEffectBase> _statusEffects = new();
+		[SerializeField] private Vector3 _playerAttackScale = Vector3.one * 0.7f;
         
 		//==================================================||Methods 
 		[TestMethod]
@@ -151,7 +152,7 @@ namespace Entity {
 		//==================================================||Unity 
 		private void Awake() {
 			Movement = new KeyboardMovement(5);
-			Attack = new ProjectileAttack(this, 70, 15, 1, 0.3f, 30f);          
+			Attack = new ProjectileAttack(this, _playerAttackScale, 70, 15, 1, 0.3f, 30f);          
 		}
        
 		private void Update() {
@@ -187,5 +188,8 @@ namespace Entity {
 		[TestMethod] private void GetExp(int pV) => Level.GetExp(pV);
 		[TestMethod] private void GetItem(int pV) => ItemInventory.AddItem(pV);
 		[TestMethod] private void AddInvenSlot(int pV) => ItemInventory.AddInventorySize(pV);
+
+		[TestMethod]
+		private void AddCard(int pV) => CardInventory.Get(this, pV);
 	}
 }

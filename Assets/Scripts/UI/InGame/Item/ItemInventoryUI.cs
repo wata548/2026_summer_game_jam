@@ -8,12 +8,18 @@ namespace UI.InGame.Item {
 	public class ItemInventoryUI: MonoBehaviour {
 		[SerializeField] private ItemShower _prefab;
 		private List<ItemShower> _itemShowers = new();
-		private const float ItemTerm = 0.2f; 
+		private const float ItemTerm = 0.1f; 
 
 		private void OnChangeInventorySize(ItemInventory pItemInventory) {
 			
 			var anchor = new Vector2(1, 0.5f);
-			while (_itemShowers.Count < pItemInventory.InventoryAmount) {
+			while (_itemShowers.Count != pItemInventory.InventoryAmount) {
+				if (_itemShowers.Count > pItemInventory.InventoryAmount) {
+					Destroy(_itemShowers[^1].gameObject);
+					_itemShowers.RemoveAt(_itemShowers.Count - 1);
+					continue;
+				}
+				
 				var newSlot = Instantiate(_prefab, transform);
 				var rect = (newSlot.transform as RectTransform)!;
 				rect.anchorMin = anchor;

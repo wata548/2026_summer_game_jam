@@ -11,9 +11,8 @@ namespace UI.InGame.Item {
 		private static int _lastClick = -2;
 		private static Action _close;
 
-		[SerializeField] private Sprite _activeFrame;
-		[SerializeField] private Sprite _unactiveFrame;
-		[SerializeField] private Image _frame;
+		[SerializeField] private Material _activeMaterial;
+		[SerializeField] private Material _unactiveMaterial;
 		private int _idx = 0;
 		public static void Init(Action pClose) => _close = pClose;
 
@@ -33,9 +32,11 @@ namespace UI.InGame.Item {
 		}
 
 		private void Update() {
-			_frame.sprite = _lastClick == _idx
-				? _activeFrame
-				: _unactiveFrame;
+			if(_lastClick == _idx)
+				_activeMaterial.SetFloat("_TimeScale", Time.unscaledTime);
+			_image.material = _lastClick == _idx
+				? _activeMaterial
+				: _unactiveMaterial;
 		}
 	}
 }

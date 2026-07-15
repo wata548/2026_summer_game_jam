@@ -8,7 +8,7 @@ namespace Entity.AttackModule.Implements {
 	[RequireComponent(typeof(SpriteRenderer))]
 	public class Projectile: ObjBase<Projectile> {
 		private const float LimitSqrDistance = 20 * 20;
-		private static IReadOnlyDictionary<string, Sprite> _images;
+		private static IReadOnlyDictionary<string, Sprite> _images = null;
 		private IEntity _owner;
 		private int _power;
 		private Vector3 _velocity;  

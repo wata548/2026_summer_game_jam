@@ -11,7 +11,6 @@ namespace UI.InGame.CardChoicing
 {
     public class CardChoiceUI : MonoBehaviour
     {
-        private CardDescTable _cardTable;
         private CardBase _cardBase;
         [SerializeField] private Image _image;
         [SerializeField] private Image _rarityimage;
@@ -22,10 +21,6 @@ namespace UI.InGame.CardChoicing
 
         private CardDesc ClickCard;
 
-        public void Awake()
-        {
-            _cardTable = new CardDescTable();
-        }
         public void SetCardChoice(CardDesc card)
         {
             ClickCard = card;

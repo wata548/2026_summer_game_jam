@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Data.Entity;
 using Entity.AttackModule;
+using Extension.ObjectPool;
 using Movement;
 using StatusEffect;
+using UI.InGame.Item;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Entity {
-	public abstract class DefaultEnemy: MonoBehaviour, IEntity {
+	public abstract class DefaultEnemy: ObjBase<DefaultEnemy>, IEntity {
 		
 		//==================================================Events	
 		public event Action<IEntity, int, bool> OnReceiveDamage;
@@ -63,6 +66,11 @@ namespace Entity {
 		}
 		
 		//==================================================Methods	
+		public void Init() {
+			Hp = MaxHp;
+			_statusEffects.Clear();
+		}
+		
 		public void ReceiveDamage(int pAmount, bool pIgnoreDamageDownMultiplier = false) {
 
 			if (IsInvincible) {
@@ -117,7 +125,16 @@ namespace Entity {
 				var ball = ExperienceBallGenerator.Instance.Pool.Get();
 				ball.transform.position = transform.position;
 			}
-			Destroy(gameObject);
+
+			var r = Random.Range(0f, 1f);
+			if (r < 0.08f) {
+				var item = ItemGenerator.Instance.Get();
+				var itemCode = Random.Range(0, 2) == 0 ? 2004 : 2005;
+				item.Set(itemCode);
+				item.transform.position = transform.position;
+			}
+			
+			Hide();
 		}
 		//==================================================Unity	
 		protected virtual void Awake() {

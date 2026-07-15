@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Card1017
+namespace Card
 {
     class Card1017 : CardBase
     {
@@ -22,11 +22,11 @@ namespace Card1017
                     pTarget.Movement.SpeedMultiplier += 0.1f * symbol;
                     break;
                 case 1:
-                    //인벤토리증가
+                    Player.Instance.ItemInventory.AddInventorySize(1);
                     pTarget.Attack.PowerMultiplier += 0.25f * symbol;
                     break;
                 case 2:
-                    //인벤토리증가
+                    Player.Instance.ItemInventory.AddInventorySize(2);
                     pTarget.Attack.PowerMultiplier += 0.35f * symbol;
                     break;
             }

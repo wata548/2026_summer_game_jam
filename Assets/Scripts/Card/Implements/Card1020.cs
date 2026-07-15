@@ -17,7 +17,6 @@ namespace Card
         public override bool IsActive { get; protected set; }=true;
         public override void OnDeath(IEntity pTarget)
         {
-
             pTarget.Heal(heals[Level]);
             IsActive = false;
             IsRevival = true;

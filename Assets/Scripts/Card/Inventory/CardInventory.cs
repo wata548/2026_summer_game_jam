@@ -15,9 +15,26 @@ namespace Card.Inventory {
 		private readonly List<CardBase> _cards = new();
 
 		//==================================================||Methods 
+		public void SetLevel(IEntity pTarget, int pId, int pTargetLevel) {
+			var temp = _cards.FirstOrDefault(card => card.Id == pId);
+			if (temp == null) {
+				var targetType = Type.GetType($"Card.Card{pId}")!;
+				temp = (Activator.CreateInstance(targetType) as CardBase)!;
+				temp.ApplyPassive(pTarget, true);
+				_cards.Add(temp);
+				OnCardUpdated?.Invoke(this);
+			}
+
+			while (temp.Level < pTargetLevel) {
+				temp.LevelUp(pTarget);
+				OnCardUpdated?.Invoke(this);
+			}
+		}
+		
 		public void Get(IEntity pTarget, int pId) {
 			var temp = _cards.FirstOrDefault(card => card.Id == pId);
 			if (temp != null) {
+				temp.LevelUp(pTarget);
 				OnCardUpdated?.Invoke(this);
 				return;
 			}
@@ -42,7 +59,6 @@ namespace Card.Inventory {
 
 		public void Update(IEntity pTarget) {
 			foreach (var card in _cards) {
-				if(!card.IsActive) continue;
 				card.Update(pTarget);
 			}
 		}

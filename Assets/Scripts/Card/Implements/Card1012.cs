@@ -28,7 +28,7 @@ namespace Card
 		}
 		public override void ExitSkill(IEntity pTarget)
 		{
-			pTarget.Movement.MoveFlip = true;
+			pTarget.Movement.MoveFlip = false;
 			if(Level != 2)
 				pTarget.MaxHp -= _deltaMaxHp[Level];
 		}

@@ -1,3 +1,4 @@
+using Data.Entity;
 using Entity.AttackModule;
 using Entity.AttackModule.Implements.Player;
 using UnityEngine;
@@ -6,7 +7,7 @@ namespace Entity {
 	[RequireComponent(typeof(SpriteRenderer))]
 	[RequireComponent(typeof(Animator))]
 	public class Snake: DefaultEnemy {
-		[SerializeField] private DefaultEnemy _after;
+		[SerializeField] private bool _isRivival;
 		[SerializeField] private string _name;
 		[SerializeField] private int _power;
 		[SerializeField] private int _projectilePower;
@@ -18,8 +19,8 @@ namespace Entity {
 		public override IAttack Attack { get; protected set; }
 
 		protected override void Death(IEntity pTarget) {
-			if (_after != null) {
-				var newMob = Instantiate(_after);
+			if (_isRivival) {
+				var newMob = EntityManager.Instance.Snake2Pool.Get();
 				newMob.transform.position = transform.position;	
 			}
 			base.Death(pTarget);

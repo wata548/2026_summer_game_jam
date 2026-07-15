@@ -1,10 +1,7 @@
 ﻿using Card;
 using Entity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Assets.Scripts.Card.Implements
+namespace Card
 {
     internal class Card1008 : CardBase
     {

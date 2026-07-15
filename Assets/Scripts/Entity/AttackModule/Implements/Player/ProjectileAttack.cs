@@ -50,9 +50,11 @@ namespace Entity.AttackModule.Implements.Player {
         
 		private float _remainTime = 0;
 		private readonly float _coolDownAnimationTerm = 0;
+		private Vector3 _playerAttackSize;
         
 		//==================================================||Constructors 
-		public ProjectileAttack(IEntity pUser, int pPower, float pSpeed, int pAttackCnt = 1, float pCoolTime = 0.5f, float pRange = 60f, float pCoolDownAnimatinoTerm = 0.1f) {
+		public ProjectileAttack(IEntity pUser, Vector3 pPlayerAttackSize, int pPower, float pSpeed, int pAttackCnt = 1, float pCoolTime = 0.5f, float pRange = 60f, float pCoolDownAnimatinoTerm = 0.1f) {
+			_playerAttackSize = pPlayerAttackSize;
 			Owner = pUser;
 			_power = pPower;
 			_speed = pSpeed;
@@ -65,7 +67,7 @@ namespace Entity.AttackModule.Implements.Player {
 		//==================================================||Methods 
 		private void Generate(float pRadian) {
 			var newProjectile = ProjectilePool.Instance.Pool.Get();
-			newProjectile.Init(Owner, "Player", Vector3.one, Speed, Power, pRadian);
+			newProjectile.Init(Owner, "Player", _playerAttackSize, Speed, Power, pRadian);
 		}
 
 		public void AddDefaultPower(int pPoint) {
