@@ -1,4 +1,5 @@
 using Card;
+using Entity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
